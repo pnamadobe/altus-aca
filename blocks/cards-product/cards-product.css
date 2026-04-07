@@ -50,7 +50,7 @@
 
 @media (width >= 900px) {
   .cards-product > ul {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
@@ -61,15 +61,14 @@
   cursor: pointer;
 }
 
-/* Image area — grey box with padding so bg shows as border around product */
+/* Image area — grey box, image uses contain so bg shows around product */
 .cards-product .cards-product-card-image {
   position: relative;
   background-color: #ebeae7;
   margin-bottom: 12px;
-  padding: 12px 8px;
   line-height: 0;
   overflow: hidden;
-  box-sizing: border-box;
+  aspect-ratio: 4 / 5;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */

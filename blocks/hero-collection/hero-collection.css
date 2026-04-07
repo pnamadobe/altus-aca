@@ -19,15 +19,17 @@
   position: relative;
   height: 50vh;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+  align-items: flex-end;
+  justify-content: flex-start;
+  text-align: left;
+  padding: 0 20px 40px;
   overflow: hidden;
 }
 
 @media (width >= 900px) {
   .hero-collection {
     height: 60vh;
+    padding: 0 48px 48px;
   }
 }
 
@@ -69,25 +71,25 @@
 }
 
 .hero-collection h1 {
-  font-size: 40px;
+  font-size: 48px;
   font-weight: 500;
-  letter-spacing: 8px;
-  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  text-transform: none;
   color: var(--color-text-light);
   margin: 0 0 8px;
+  line-height: 1;
 }
 
 @media (width >= 900px) {
   .hero-collection h1 {
-    font-size: 64px;
-    letter-spacing: 12px;
+    font-size: 96px;
   }
 }
 
 .hero-collection p {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 400;
-  letter-spacing: 1.5px;
-  color: var(--color-text-muted);
+  letter-spacing: 0.84px;
+  color: rgb(245 245 243 / 70%);
   margin: 0;
 }
