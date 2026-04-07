@@ -1,0 +1,38 @@
+{
+  "variantName": "cards-product",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-04-07T12:35:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://altus-c2n.pages.dev/",
+    "originPage": "homepage summit product grid",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "compact",
+    "purpose": "product-cards",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "badge + image + name + price + swatches",
+    "buttonCount": 0,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "product cards with pricing",
+      "e-commerce product grids",
+      "product showcase sections"
+    ],
+    "notSuitableFor": [
+      "editorial or content cards",
+      "collection tiles with overlay text"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-04-07T12:35:00.000Z"
+  }
+}

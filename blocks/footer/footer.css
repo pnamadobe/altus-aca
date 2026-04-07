@@ -1,12 +1,15 @@
+/* Altus Footer — Dark background, 4-column link grid, bottom bar */
+
 footer {
-  background-color: var(--light-color);
-  font-size: var(--body-font-size-xs);
+  background-color: var(--color-bg-footer);
+  color: var(--color-text-light);
+  font-size: var(--body-font-size-m);
 }
 
 footer .footer > div {
   margin: auto;
   max-width: 1200px;
-  padding: 40px 24px 24px;
+  padding: 64px 24px 32px;
 }
 
 footer .footer p {
@@ -15,6 +18,135 @@ footer .footer p {
 
 @media (width >= 900px) {
   footer .footer > div {
-    padding: 40px 32px 24px;
+    padding: 64px 32px 32px;
   }
+}
+
+/* Reset ALL button decoration in footer — links are plain text here */
+footer .footer a.button:any-link {
+  display: inline;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  background-color: transparent;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  text-transform: none;
+  text-align: left;
+  white-space: normal;
+  color: inherit;
+}
+
+footer .footer a.button:hover {
+  background-color: transparent;
+  border: none;
+}
+
+footer .footer .button-container {
+  text-align: left;
+}
+
+/* Link grid — first section with 4 columns */
+footer .footer > div > div:first-child {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 48px;
+}
+
+@media (width >= 900px) {
+  footer .footer > div > div:first-child {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Column headings */
+footer .footer > div > div:first-child h2 {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgb(245 245 243 / 40%);
+  margin: 0 0 20px;
+  line-height: 1;
+}
+
+/* Column links */
+footer .footer > div > div:first-child a:any-link {
+  font-size: 13px;
+  color: rgb(245 245 243 / 70%);
+  text-decoration: none;
+  display: block;
+  margin-bottom: 12px;
+  transition: color 0.2s ease;
+}
+
+footer .footer > div > div:first-child a:hover {
+  color: var(--color-text-light);
+  opacity: 1;
+}
+
+/* Bottom bar — wordmark left, legal links right */
+footer .footer > div > div:last-child {
+  border-top: 1px solid rgb(245 245 243 / 10%);
+  padding-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (width >= 900px) {
+  footer .footer > div > div:last-child {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+/* Wordmark side */
+footer .footer > div > div:last-child > div:first-child {
+  flex: 0 0 auto;
+}
+
+footer .footer > div > div:last-child strong {
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 4.48px;
+  text-transform: uppercase;
+  color: var(--color-text-light);
+}
+
+footer .footer > div > div:last-child > div:first-child > div > p:last-child {
+  font-size: 11px;
+  letter-spacing: 1.1px;
+  color: rgb(245 245 243 / 30%);
+  margin-top: 4px;
+}
+
+/* Legal links side — horizontal row, right-aligned */
+footer .footer > div > div:last-child > div:last-child {
+  flex: 0 0 auto;
+  font-size: 11px;
+  color: rgb(245 245 243 / 30%);
+}
+
+footer .footer > div > div:last-child > div:last-child > div {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  gap: 0 24px;
+}
+
+footer .footer > div > div:last-child > div:last-child a:any-link {
+  font-size: 11px;
+  color: rgb(245 245 243 / 30%);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+footer .footer > div > div:last-child > div:last-child a:hover {
+  color: rgb(245 245 243 / 60%);
+  opacity: 1;
 }

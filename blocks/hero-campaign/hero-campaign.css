@@ -1,0 +1,104 @@
+/* Hero Campaign — Mid-page campaign band with background image, centered text,
+   bottom gradient fading to black for seamless transition to dark section below */
+
+.hero-campaign-container .hero-campaign-wrapper {
+  max-width: unset;
+  padding: 0;
+}
+
+.hero-campaign {
+  position: relative;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px 48px;
+  text-align: center;
+  overflow: hidden;
+}
+
+@media (width >= 900px) {
+  .hero-campaign {
+    height: 480px;
+    padding: 0 48px 48px;
+  }
+}
+
+/* General element styles (before positional selectors) */
+.hero-campaign h2 {
+  font-size: 23px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--color-text-light);
+  margin: 0 0 24px;
+}
+
+@media (width >= 900px) {
+  .hero-campaign h2 {
+    font-size: 28px;
+  }
+}
+
+.hero-campaign p {
+  color: var(--color-text-muted);
+  margin: 0 0 var(--gap-md);
+}
+
+.hero-campaign a.button:any-link {
+  border-color: var(--color-border-light);
+  color: var(--color-text-light);
+  background-color: transparent;
+}
+
+.hero-campaign a.button:hover {
+  background-color: var(--color-text-light);
+  color: var(--color-text);
+}
+
+/* Background image */
+.hero-campaign > div:first-child {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-campaign > div:first-child > div {
+  width: 100%;
+  height: 100%;
+}
+
+.hero-campaign > div:first-child picture,
+.hero-campaign > div:first-child img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Dark gradient overlay — transparent at top, near-black at bottom
+   for seamless blend into the dark section below */
+.hero-campaign > div:first-child::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgb(10 10 10 / 0%) 40%, rgb(10 10 10 / 80%) 100%);
+}
+
+/* Content — after background div rules, intentional order */
+/* stylelint-disable-next-line no-descending-specificity */
+.hero-campaign > div:last-child {
+  position: relative;
+  z-index: 1;
+  max-width: 600px;
+}
+
+/* Label — ember */
+.hero-campaign > div:last-child > div > p:first-child {
+  font-size: var(--label-font-size);
+  font-weight: var(--label-font-weight);
+  letter-spacing: var(--label-letter-spacing);
+  text-transform: var(--label-text-transform);
+  color: var(--color-accent-ember);
+  margin: 0 0 var(--gap-md);
+}

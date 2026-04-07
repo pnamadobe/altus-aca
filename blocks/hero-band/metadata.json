@@ -1,0 +1,38 @@
+{
+  "variantName": "hero-band",
+  "baseBlock": "hero",
+  "version": "1.0.0",
+  "created": "2026-04-07T12:35:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://altus-c2n.pages.dev/",
+    "originPage": "homepage trail band",
+    "blockPosition": "bottom"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "minimal",
+    "purpose": "image-band",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "heading + subtitle",
+    "buttonCount": 0,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "visual break bands with minimal text",
+      "image bands with heading overlay",
+      "atmospheric section dividers"
+    ],
+    "notSuitableFor": [
+      "heroes with CTA buttons",
+      "heroes with body text"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-04-07T12:35:00.000Z"
+  }
+}

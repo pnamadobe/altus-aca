@@ -1,0 +1,38 @@
+{
+  "variantName": "columns-editorial",
+  "baseBlock": "columns",
+  "version": "1.0.0",
+  "created": "2026-04-07T12:35:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://altus-c2n.pages.dev/",
+    "originPage": "homepage editorial feature",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "editorial-feature",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "image + label + heading + byline + paragraph + CTA",
+    "buttonCount": 1,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "editorial feature sections",
+      "story/article teaser with image",
+      "side-by-side image and text layouts"
+    ],
+    "notSuitableFor": [
+      "multi-row column layouts",
+      "comparison columns without images"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-04-07T12:35:00.000Z"
+  }
+}

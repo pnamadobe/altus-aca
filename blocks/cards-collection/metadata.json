@@ -1,0 +1,38 @@
+{
+  "variantName": "cards-collection",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-04-07T12:35:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://altus-c2n.pages.dev/",
+    "originPage": "homepage product lines grid",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "collection-tiles",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "image + tag + name + description + CTA",
+    "buttonCount": 1,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "product line or collection showcase tiles",
+      "category cards with background images",
+      "feature tiles with overlay text"
+    ],
+    "notSuitableFor": [
+      "simple product cards with prices",
+      "text-only card grids"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-04-07T12:35:00.000Z"
+  }
+}

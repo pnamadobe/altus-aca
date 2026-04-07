@@ -213,9 +213,23 @@ export default async function decorate(block) {
 
   const navTools = nav.querySelector('.nav-tools');
   if (navTools) {
-    const search = navTools.querySelector('a[href*="search"]');
-    if (search && search.textContent === '') {
-      search.setAttribute('aria-label', 'Search');
+    // Replace text links with SVG icon buttons
+    const searchLink = navTools.querySelector('a[href*="search"]');
+    if (searchLink) {
+      const searchBtn = document.createElement('button');
+      searchBtn.className = 'nav-icon';
+      searchBtn.setAttribute('aria-label', 'Search');
+      searchBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"></circle><line x1="16.5" y1="16.5" x2="22" y2="22"></line></svg>';
+      searchLink.closest('p')?.replaceWith(searchBtn);
+    }
+
+    const bagLink = navTools.querySelector('a[href="#"]');
+    if (bagLink) {
+      const accountBtn = document.createElement('button');
+      accountBtn.className = 'nav-icon';
+      accountBtn.setAttribute('aria-label', 'Account');
+      accountBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>';
+      bagLink.closest('p')?.before(accountBtn);
     }
   }
 
@@ -236,6 +250,15 @@ export default async function decorate(block) {
   navWrapper.className = 'nav-wrapper';
   navWrapper.append(nav);
   block.append(navWrapper);
+
+  // Translucent background on scroll
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 24) {
+      navWrapper.classList.add('nav-scrolled');
+    } else {
+      navWrapper.classList.remove('nav-scrolled');
+    }
+  }, { passive: true });
 
   if (getMetadata('breadcrumbs').toLowerCase() === 'true') {
     navWrapper.append(await buildBreadcrumbs());

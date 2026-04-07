@@ -1,0 +1,38 @@
+{
+  "variantName": "hero-campaign",
+  "baseBlock": "hero",
+  "version": "1.0.0",
+  "created": "2026-04-07T12:35:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://altus-c2n.pages.dev/",
+    "originPage": "homepage campaign band",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "compact",
+    "purpose": "campaign-band",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "label + heading + CTA",
+    "buttonCount": 1,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "campaign promotional bands",
+      "mid-page hero banners with CTA",
+      "product promotion sections"
+    ],
+    "notSuitableFor": [
+      "top-of-page heroes with body text",
+      "minimal bands without CTA"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-04-07T12:35:00.000Z"
+  }
+}

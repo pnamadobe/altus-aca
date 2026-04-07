@@ -1,9 +1,16 @@
-/* header and nav layout */
+/* Altus Header — Transparent fixed nav with light text */
+
+/* wrapper */
 header .nav-wrapper {
-  background-color: var(--background-color);
+  background-color: transparent;
   width: 100%;
-  z-index: 2;
+  z-index: 100;
   position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  border-radius: 0;
+  transition: background-color 0.3s ease;
 }
 
 header nav {
@@ -19,6 +26,7 @@ header nav {
   height: var(--nav-height);
   padding: 0 24px;
   font-family: var(--body-font-family);
+  color: var(--color-text-light);
 }
 
 header nav[aria-expanded='true'] {
@@ -28,31 +36,32 @@ header nav[aria-expanded='true'] {
     'tools tools' var(--nav-height) / auto 1fr;
   overflow-y: auto;
   min-height: 100dvh;
+  background-color: var(--color-bg-dark);
 }
 
 @media (width >= 900px) {
   header nav {
     display: flex;
-    justify-content: space-between;
-    gap: 0 32px;
+    justify-content: flex-start;
+    gap: 0 36px;
     max-width: 1264px;
-    padding: 0 32px;
+    padding: 0 48px;
   }
 
   header nav[aria-expanded='true'] {
     min-height: 0;
     overflow: visible;
+    background-color: transparent;
   }
 }
 
 header nav p {
   margin: 0;
-  
-  /* line-height: 1; BOILERPLATE DOESN'T HAVE a P tag in header, */
 }
 
 header nav a:any-link {
   color: currentcolor;
+  text-decoration: none;
 }
 
 /* hamburger */
@@ -69,7 +78,7 @@ header nav .nav-hamburger button {
   border: 0;
   border-radius: 0;
   padding: 0;
-  background-color: var(--background-color);
+  background-color: transparent;
   color: inherit;
   overflow: initial;
   text-overflow: initial;
@@ -136,13 +145,19 @@ header nav[aria-expanded='true'] .nav-hamburger-icon::after {
   }
 }
 
-/* brand */
+/* brand — wordmark */
 header .nav-brand {
   grid-area: brand;
   flex-basis: 128px;
-  font-size: var(--heading-font-size-s);
-  font-weight: 700;
   line-height: 1;
+}
+
+header nav .nav-brand a {
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 5.04px;
+  text-transform: uppercase;
+  text-decoration: none;
 }
 
 header nav .nav-brand img {
@@ -150,10 +165,10 @@ header nav .nav-brand img {
   height: auto;
 }
 
-/* sections */
+/* sections — nav links */
 header nav .nav-sections {
   grid-area: sections;
-  flex: 1 1 auto;
+  flex: 0 1 auto;
   display: none;
   visibility: hidden;
 }
@@ -167,11 +182,14 @@ header nav[aria-expanded='true'] .nav-sections {
 header nav .nav-sections ul {
   list-style: none;
   padding-left: 0;
-  font-size: var(--body-font-size-s);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.96px;
+  text-transform: uppercase;
 }
 
 header nav .nav-sections ul > li {
-  font-weight: 500;
+  font-weight: 400;
 }
 
 header nav .nav-sections ul > li > ul {
@@ -222,7 +240,7 @@ header nav .nav-sections ul > li > ul > li {
   header nav .nav-sections ul {
     display: flex;
     align-items: center;
-    gap: 24px;
+    gap: 28px;
     margin: 0;
   }
 
@@ -243,21 +261,9 @@ header nav .nav-sections ul > li > ul > li {
     width: 200px;
     top: 150%;
     padding: 16px;
-    background-color: var(--light-color);
+    background-color: var(--color-bg-dark);
     white-space: initial;
     z-index: 1;
-  }
-
-  header nav .nav-sections .default-content-wrapper > ul > li > ul::before {
-    content: '';
-    position: absolute;
-    top: -8px;
-    left: 16px;
-    width: 0;
-    height: 0;
-    border-left: 8px solid transparent;
-    border-right: 8px solid transparent;
-    border-bottom: 8px solid var(--light-color);
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li {
@@ -265,60 +271,87 @@ header nav .nav-sections ul > li > ul > li {
   }
 }
 
-/* tools */
-header nav .nav-tools {
-  grid-area: tools;
+/* Origin link — ember colored */
+header nav .nav-sections a[href*="origin"] {
+  color: var(--color-accent-ember);
 }
 
-header nav .nav-tools .button {
+/* tools — search, account icons, bag — pushed to far right */
+header nav .nav-tools {
+  grid-area: tools;
+  flex: 0 0 auto;
+  margin-left: auto;
+}
+
+header nav .nav-tools .default-content-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+header nav .nav-tools p {
+  margin: 0;
+}
+
+/* Reset button decoration on Bag link */
+header nav .nav-tools a.button:any-link {
+  display: inline;
   margin: 0;
   border: none;
-  padding: 0.5em;
+  border-radius: 0;
+  padding: 0;
   background: none;
-  line-height: 0;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.96px;
+  text-transform: uppercase;
+  color: inherit;
+}
+
+header nav .nav-tools a.button:hover {
+  background: none;
+  border: none;
+  color: inherit;
+  opacity: 0.7;
+}
+
+header nav .nav-tools .button-container {
+  margin: 0;
+}
+
+/* SVG icon buttons */
+header nav .nav-tools .nav-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+}
+
+header nav .nav-tools .nav-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* scrolled state — translucent background */
+header .nav-wrapper.nav-scrolled {
+  background-color: rgb(245 245 243 / 85%);
+  backdrop-filter: blur(12px);
+}
+
+header .nav-wrapper.nav-scrolled nav {
+  color: var(--color-text);
 }
 
 /* breadcrumbs */
 header .breadcrumbs {
   display: none;
-  margin: auto;
-  max-width: 1248px;
-  height: var(--breadcrumbs-height);
-  padding: 0 24px;
-  font-size: var(--body-font-size-xs);
-  overflow: hidden;
-}
-
-header .breadcrumbs ol {
-  display: flex;
-  flex-flow: wrap;
-  list-style: none;
-  padding: 0;
-  margin-top: 0;
-  margin-bottom: 0;
-  gap: 1ch;
-}
-
-/* stylelint-disable-next-line no-descending-specificity */
-header .breadcrumbs ol li {
-  padding: 0;
-  color: var(--dark-color);
-}
-
-header .breadcrumbs ol li:not(:last-child)::after {
-  content: '/';
-  padding-left: 1ch;
-}
-
-/* stylelint-disable-next-line no-descending-specificity */
-header .breadcrumbs ol li[aria-current] {
-  color: var(--text-color);
-}
-
-@media (width >= 900px) {
-  header .breadcrumbs {
-    display: block;
-    max-width: 1264px;
-    padding: 0 32px;
-  }
 }

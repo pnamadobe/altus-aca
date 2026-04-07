@@ -1,0 +1,105 @@
+/* Hero Banner — Full-width hero with background video/image, left-aligned text overlay */
+
+.hero-banner-container {
+  margin: 0;
+  padding: 0;
+}
+
+.hero-banner-container > div {
+  max-width: unset;
+  padding: 0;
+}
+
+.hero-banner-container .hero-banner-wrapper {
+  max-width: unset;
+  padding: 0;
+}
+
+.hero-banner {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: flex-end;
+  padding: 60px 20px;
+  overflow: hidden;
+}
+
+@media (width >= 900px) {
+  .hero-banner {
+    padding: 80px 48px;
+  }
+}
+
+/* Content cell */
+.hero-banner > div:last-child {
+  position: relative;
+  z-index: 1;
+  max-width: 560px;
+}
+
+/* Background media container */
+.hero-banner > div:first-child {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-banner > div:first-child > div {
+  width: 100%;
+  height: 100%;
+}
+
+.hero-banner > div:first-child picture,
+.hero-banner > div:first-child img,
+.hero-banner > div:first-child video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Dark gradient overlay */
+.hero-banner > div:first-child::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgb(0 0 0 / 60%) 0%, rgb(0 0 0 / 20%) 50%, transparent 100%);
+}
+
+/* Typography */
+.hero-banner h1 {
+  font-size: var(--heading-font-size-xxl);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: var(--color-text-light);
+  margin: 0 0 20px;
+}
+
+.hero-banner p {
+  font-size: var(--body-font-size-m);
+  line-height: 1.6;
+  color: var(--color-text-muted);
+  margin: 0 0 var(--gap-xl);
+}
+
+/* Label (first p before h1) — ember colored */
+.hero-banner > div:last-child > div > p:first-child {
+  font-size: var(--label-font-size);
+  font-weight: var(--label-font-weight);
+  letter-spacing: var(--label-letter-spacing);
+  text-transform: var(--label-text-transform);
+  color: var(--color-accent-ember);
+  margin: 0 0 var(--gap-md);
+}
+
+.hero-banner a.button:any-link {
+  border-color: var(--color-border-light);
+  color: var(--color-text-light);
+  background-color: transparent;
+}
+
+.hero-banner a.button:hover {
+  background-color: var(--color-text-light);
+  color: var(--color-text);
+}

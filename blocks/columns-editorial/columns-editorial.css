@@ -1,0 +1,122 @@
+/* Columns Editorial — Image left with gradient fade, editorial text right on warm grey bg */
+
+/* Full-width container — no padding, no gap to adjacent blocks */
+.columns-editorial-container .columns-editorial-wrapper {
+  max-width: unset;
+  padding: 0;
+  margin: 0;
+}
+
+.columns-editorial > div {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (width >= 900px) {
+  .columns-editorial > div {
+    display: grid;
+    grid-template-columns: 55% 45%;
+    align-items: stretch;
+  }
+}
+
+/* Image column — with gradient fade to copy bg */
+.columns-editorial .columns-editorial-img-col {
+  position: relative;
+  order: 0;
+  line-height: 0;
+  overflow: hidden;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.columns-editorial .columns-editorial-img-col p,
+.columns-editorial .columns-editorial-img-col picture {
+  margin: 0;
+  display: block;
+  height: 100%;
+}
+
+.columns-editorial .columns-editorial-img-col img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Gradient overlay: transparent → copy background color */
+.columns-editorial .columns-editorial-img-col::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 0 60%;
+  background: linear-gradient(90deg, transparent, #e8e5df);
+  pointer-events: none;
+}
+
+/* Text column — warm grey background */
+.columns-editorial > div > div:not(.columns-editorial-img-col) {
+  order: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px 24px;
+  background-color: #e8e5df;
+}
+
+@media (width >= 900px) {
+  .columns-editorial > div > div:not(.columns-editorial-img-col) {
+    padding: 64px 40px;
+  }
+}
+
+/* Label */
+.columns-editorial > div > div:not(.columns-editorial-img-col) > p:first-child {
+  font-size: var(--label-font-size);
+  font-weight: var(--label-font-weight);
+  letter-spacing: var(--label-letter-spacing);
+  text-transform: var(--label-text-transform);
+  color: var(--color-accent-dusk);
+  margin: 0 0 var(--gap-md);
+}
+
+/* Heading */
+.columns-editorial h2 {
+  font-size: var(--heading-font-size-xl);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+  margin: 0 0 var(--gap-sm);
+}
+
+/* Byline */
+.columns-editorial > div > div:not(.columns-editorial-img-col) > p:nth-child(3) {
+  font-size: var(--body-font-size-s);
+  font-style: italic;
+  color: var(--color-accent-slate);
+  margin: 0 0 var(--gap-md);
+}
+
+/* Body text */
+.columns-editorial > div > div:not(.columns-editorial-img-col) > p:nth-child(4) {
+  font-size: var(--body-font-size-m);
+  line-height: 1.6;
+  color: var(--color-text);
+  margin: 0 0 var(--gap-lg);
+}
+
+/* Text CTA link */
+.columns-editorial > div > div:not(.columns-editorial-img-col) > p:last-child a {
+  font-size: var(--label-font-size);
+  font-weight: 400;
+  letter-spacing: var(--button-letter-spacing);
+  text-transform: uppercase;
+  color: var(--color-text);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-text);
+  padding-bottom: 2px;
+  transition: opacity 0.2s ease;
+}
+
+.columns-editorial > div > div:not(.columns-editorial-img-col) > p:last-child a:hover {
+  opacity: 0.7;
+}

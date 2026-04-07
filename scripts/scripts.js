@@ -56,6 +56,26 @@ function autolinkModals(doc) {
 }
 
 /**
+ * Replaces {{drop-date}} placeholders with a date 3 weeks from now.
+ * Authors write e.g. "{{drop-date}} 9AM ET" and it renders as "APR 28  9AM ET".
+ * @param {Element} main The container element
+ */
+function decorateDropDates(main) {
+  const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+  const placeholder = '{{drop-date}}';
+
+  main.querySelectorAll('p').forEach((p) => {
+    if (p.textContent.includes(placeholder)) {
+      const drop = new Date();
+      drop.setDate(drop.getDate() + 21);
+      const formatted = `${months[drop.getMonth()]} ${drop.getDate()}`;
+      p.textContent = p.textContent.replace(placeholder, formatted);
+      p.classList.add('drop-date');
+    }
+  });
+}
+
+/**
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
  */
@@ -129,6 +149,7 @@ export function decorateMain(main) {
   // hopefully forward compatible button decoration
   decorateButtons(main);
   decorateIcons(main);
+  decorateDropDates(main);
   buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);

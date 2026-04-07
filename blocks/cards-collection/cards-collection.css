@@ -1,0 +1,166 @@
+/* Cards Collection — Product line tiles with background images and overlay text */
+
+/* Section layout — tighten gap between header text and cards */
+.cards-collection-container .default-content-wrapper {
+  padding-bottom: 0;
+}
+
+.cards-collection-container .cards-collection-wrapper {
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 40px;
+}
+
+/* Label above heading — slate grey */
+.cards-collection-container .default-content-wrapper p:first-child {
+  font-size: var(--label-font-size);
+  font-weight: var(--label-font-weight);
+  letter-spacing: var(--label-letter-spacing);
+  text-transform: var(--label-text-transform);
+  color: var(--color-accent-slate);
+  margin: 0 0 var(--gap-md);
+}
+
+/* Heading — no bottom margin, gap handled by wrapper margin */
+.cards-collection-container .default-content-wrapper h2 {
+  margin: 0;
+}
+
+/* Grid */
+.cards-collection > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+@media (width >= 600px) {
+  .cards-collection > ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (width >= 900px) {
+  .cards-collection > ul {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Card tile */
+.cards-collection > ul > li {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  cursor: pointer;
+  border: none;
+  background-color: var(--color-bg-dark);
+}
+
+/* Image fills the entire card — chain: .card-image > p > picture > img */
+.cards-collection .cards-collection-card-image {
+  position: absolute;
+  inset: 0;
+  line-height: 0;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.cards-collection .cards-collection-card-image p,
+.cards-collection .cards-collection-card-image picture {
+  margin: 0;
+  display: block;
+  height: 100%;
+}
+
+.cards-collection .cards-collection-card-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.cards-collection > ul > li:hover img {
+  transform: scale(1.05);
+}
+
+/* Gradient overlay for text readability */
+.cards-collection .cards-collection-card-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgb(0 0 0 / 70%) 0%, rgb(0 0 0 / 10%) 60%, transparent 100%);
+}
+
+/* Text content positioned at bottom */
+.cards-collection .cards-collection-card-body {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 24px;
+  z-index: 1;
+  margin: 0;
+}
+
+/* Tag (e.g., "No compromises") */
+.cards-collection .cards-collection-card-body > p:first-child {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--color-accent-ember);
+  margin: 0 0 var(--gap-xs);
+}
+
+/* Title */
+.cards-collection .cards-collection-card-body h3 {
+  font-size: var(--heading-font-size-m);
+  font-weight: 500;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  color: var(--color-text-light);
+  margin: 0 0 var(--gap-xs);
+  line-height: 1;
+}
+
+/* Description */
+.cards-collection .cards-collection-card-body > p:nth-child(3) {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--color-text-subtle);
+  margin: 0 0 var(--gap-sm);
+}
+
+/* CTA link — reset button decoration, plain underlined text */
+.cards-collection .cards-collection-card-body .button-container {
+  margin: 0;
+}
+
+.cards-collection .cards-collection-card-body a.button:any-link {
+  display: inline;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  background: none;
+  white-space: normal;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 1.98px;
+  text-transform: uppercase;
+  color: var(--color-text-light);
+  text-decoration: none;
+  border-bottom: 1px solid rgb(245 245 243 / 40%);
+  padding-bottom: 2px;
+  transition: border-color 0.2s ease;
+}
+
+.cards-collection .cards-collection-card-body a.button:hover {
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--color-text-light);
+  color: var(--color-text-light);
+  opacity: 1;
+}

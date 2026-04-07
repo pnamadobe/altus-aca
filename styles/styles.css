@@ -1,85 +1,98 @@
 /*
- * Copyright 2020 Adobe. All rights reserved.
- * This file is licensed to you under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License. You may obtain a copy
- * of the License at http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under
- * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
- * OF ANY KIND, either express or implied. See the License for the specific language
- * governing permissions and limitations under the License.
+ * Altus C2N — Design System
+ * Migrated from https://altus-c2n.pages.dev/
  */
 
 :root {
-  /* colors */
-  --background-color: white;
-  --light-color: #f8f8f8;
-  --dark-color: #505050;
-  --text-color: #131313;
-  --link-color: #3b63fb;
-  --link-hover-color: #1d3ecf;
+  /* Colors */
+  --color-bg: #f5f5f3;
+  --color-bg-dark: #0a0a0a;
+  --color-bg-footer: #1c1c1e;
+  --color-text: #0a0a0a;
+  --color-text-light: #f5f5f3;
+  --color-text-muted: rgb(245 245 243 / 80%);
+  --color-text-subtle: rgb(245 245 243 / 65%);
+  --color-text-faint: rgb(245 245 243 / 45%);
+  --color-accent-ember: #c4622d;
+  --color-accent-dusk: #8b7355;
+  --color-accent-slate: #6b7280;
+  --color-border-light: rgb(245 245 243 / 80%);
 
-  /* fonts */
-  --body-font-family: roboto, roboto-fallback, sans-serif;
-  --heading-font-family: roboto-condensed, roboto-condensed-fallback, sans-serif;
+  /* Fonts */
+  --body-font-family: "Helvetica Neue", helvetica, arial, sans-serif;
+  --heading-font-family: "Helvetica Neue", helvetica, arial, sans-serif;
+  --serif-font-family: georgia, "Times New Roman", serif;
 
-  /* body sizes */
-  --body-font-size-m: 22px;
-  --body-font-size-s: 19px;
-  --body-font-size-xs: 17px;
+  /* Body sizes */
+  --body-font-size-m: 15px;
+  --body-font-size-s: 13px;
+  --body-font-size-xs: 11px;
 
-  /* heading sizes */
-  --heading-font-size-xxl: 55px;
-  --heading-font-size-xl: 44px;
-  --heading-font-size-l: 34px;
-  --heading-font-size-m: 27px;
-  --heading-font-size-s: 24px;
-  --heading-font-size-xs: 22px;
+  /* Heading sizes */
+  --heading-font-size-xxl: 35px;
+  --heading-font-size-xl: 28px;
+  --heading-font-size-l: 23px;
+  --heading-font-size-m: 20px;
+  --heading-font-size-s: 16px;
+  --heading-font-size-xs: 13px;
 
-  /* nav heights */
-  --nav-height: 64px;
-  --breadcrumbs-height: 34px;
+  /* Label */
+  --label-font-size: 11px;
+  --label-font-weight: 500;
+  --label-letter-spacing: 2.2px;
+  --label-text-transform: uppercase;
+
+  /* Buttons */
+  --button-font-size: 11px;
+  --button-font-weight: 500;
+  --button-letter-spacing: 1.98px;
+  --button-text-transform: uppercase;
+  --button-padding: 14px 28px;
+  --button-border-radius: 0;
+  --button-transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+
+  /* Spacing */
+  --section-padding: 80px 24px;
+  --section-padding-mobile: 60px 20px;
+  --gap-xs: 6px;
+  --gap-sm: 12px;
+  --gap-md: 16px;
+  --gap-lg: 24px;
+  --gap-xl: 32px;
+  --gap-xxl: 48px;
+
+  /* Layout */
+  --content-max-width: 1200px;
+  --nav-height: 56px;
   --header-height: var(--nav-height);
-}
-
-/* fallback fonts */
-@font-face {
-  font-family: roboto-condensed-fallback;
-  size-adjust: 88.82%;
-  src: local('Arial');
-}
-
-@font-face {
-  font-family: roboto-fallback;
-  size-adjust: 99.529%;
-  src: local('Arial');
 }
 
 @media (width >= 900px) {
   :root {
-    /* body sizes */
-    --body-font-size-m: 18px;
-    --body-font-size-s: 16px;
-    --body-font-size-xs: 14px;
-
-    /* heading sizes */
     --heading-font-size-xxl: 45px;
     --heading-font-size-xl: 36px;
     --heading-font-size-l: 28px;
-    --heading-font-size-m: 22px;
+    --heading-font-size-m: 23px;
     --heading-font-size-s: 20px;
-    --heading-font-size-xs: 18px;
+    --heading-font-size-xs: 16px;
+    --body-font-size-m: 16px;
+    --body-font-size-s: 15px;
+    --body-font-size-xs: 12px;
+    --section-padding: 120px 48px;
   }
 }
 
+/* Base */
 body {
   display: none;
   margin: 0;
-  background-color: var(--background-color);
-  color: var(--text-color);
+  background-color: var(--color-bg);
+  color: var(--color-text);
   font-family: var(--body-font-family);
   font-size: var(--body-font-size-m);
   line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizelegibility;
 }
 
 body.appear {
@@ -87,7 +100,8 @@ body.appear {
 }
 
 header {
-  height: var(--header-height);
+  height: 0;
+  border-radius: 0;
 }
 
 header .header,
@@ -100,23 +114,14 @@ footer .footer[data-block-status="loaded"] {
   visibility: visible;
 }
 
-@media (width >= 900px) {
-  body[data-breadcrumbs] {
-    --header-height: calc(var(--nav-height) + var(--breadcrumbs-height));
-  }
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin-top: 0.8em;
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
   margin-bottom: 0.25em;
   font-family: var(--heading-font-family);
-  font-weight: 600;
-  line-height: 1.25;
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
   scroll-margin: 40px;
 }
 
@@ -127,96 +132,88 @@ h4 { font-size: var(--heading-font-size-m); }
 h5 { font-size: var(--heading-font-size-s); }
 h6 { font-size: var(--heading-font-size-xs); }
 
-p,
-dl,
-ol,
-ul,
-pre,
-blockquote {
-  margin-top: 0.8em;
-  margin-bottom: 0.25em;
+p, dl, ol, ul, pre, blockquote {
+  margin-top: 0;
+  margin-bottom: 0.75em;
 }
 
-code,
-pre {
-  font-size: var(--body-font-size-s);
-}
-
-pre {
-  padding: 16px;
-  border-radius: 8px;
-  background-color: var(--light-color);
-  overflow-x: auto;
-  white-space: pre;
-}
-
-main > div {
-  margin: 40px 16px;
-}
-
-input,
-textarea,
-select,
-button {
-  font: inherit;
-}
-
-/* links */
+/* Links */
 a:any-link {
-  color: var(--link-color);
+  color: inherit;
   text-decoration: none;
   word-break: break-word;
+  transition: opacity 0.2s ease;
 }
 
 a:hover {
-  color: var(--link-hover-color);
-  text-decoration: underline;
+  opacity: 0.7;
 }
 
-/* buttons */
+/* Buttons — Outline (default in EDS) */
 a.button:any-link,
 button {
   box-sizing: border-box;
   display: inline-block;
   max-width: 100%;
-  margin: 12px 0;
-  border: 2px solid transparent;
-  border-radius: 2.4em;
-  padding: 0.5em 1.2em;
+  margin: var(--gap-sm) 0;
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--button-border-radius);
+  padding: var(--button-padding);
   font-family: var(--body-font-family);
-  font-style: normal;
-  font-weight: 500;
+  font-size: var(--button-font-size);
+  font-weight: var(--button-font-weight);
+  letter-spacing: var(--button-letter-spacing);
+  text-transform: var(--button-text-transform);
   line-height: 1.25;
   text-align: center;
   text-decoration: none;
-  background-color: var(--link-color);
-  color: var(--background-color);
+  background-color: transparent;
+  color: var(--color-text);
   cursor: pointer;
   text-overflow: ellipsis;
   white-space: nowrap;
+  transition: var(--button-transition);
 }
 
 a.button:hover,
 a.button:focus,
 button:hover,
 button:focus {
-  background-color: var(--link-hover-color);
+  background-color: var(--color-text);
+  color: var(--color-text-light);
+  border-color: var(--color-text);
   cursor: pointer;
+}
+
+a.button:focus,
+button:focus {
+  outline: 2px solid currentcolor;
+  outline-offset: 2px;
 }
 
 button:disabled,
 button:disabled:hover {
-  background-color: var(--light-color);
+  background-color: var(--color-bg);
+  color: var(--color-accent-slate);
   cursor: unset;
 }
 
+/* Buttons — Secondary (solid) */
 a.button.secondary,
 button.secondary {
-  background-color: unset;
-  border: 2px solid currentcolor;
-  color: var(--text-color);
+  background-color: var(--color-text-light);
+  border-color: var(--color-text-light);
+  color: var(--color-text);
 }
 
+a.button.secondary:hover,
+button.secondary:hover {
+  background-color: transparent;
+  color: var(--color-text-light);
+  border-color: var(--color-border-light);
+}
+
+/* Images */
 main img {
   max-width: 100%;
   width: auto;
@@ -234,31 +231,159 @@ main img {
   width: 100%;
 }
 
-/* sections */
+/* Input */
+input, textarea, select, button {
+  font: inherit;
+}
+
+/* Sections */
 main > .section {
-  margin: 40px 0;
+  margin: 0;
 }
 
 main > .section > div {
-  max-width: 1200px;
+  max-width: var(--content-max-width);
   margin: auto;
-  padding: 0 24px;
+  padding: var(--section-padding);
 }
 
-main > .section:first-of-type {
-  margin-top: 0;
+main > .section:first-of-type > div {
+  padding-top: 0;
 }
 
-@media (width >= 900px) {
+@media (width < 900px) {
   main > .section > div {
-    padding: 0 32px;
+    padding: var(--section-padding-mobile);
   }
 }
 
-/* section metadata */
-main .section.light,
-main .section.highlight {
-  background-color: var(--light-color);
+/* Section — Dark */
+main .section.dark {
+  background-color: var(--color-bg-dark);
+}
+
+main .section.dark > div {
+  color: var(--color-text-light);
+  text-align: center;
+}
+
+main .section.dark > .default-content-wrapper {
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+main .section.dark h1,
+main .section.dark h2,
+main .section.dark h3,
+main .section.dark h4,
+main .section.dark h5,
+main .section.dark h6 {
+  color: var(--color-text-light);
+}
+
+/* Larger heading in dark sections */
+main .section.dark h2 {
+  font-size: 39px;
+  letter-spacing: -0.01em;
+  margin: 0 0 var(--gap-md);
+}
+
+@media (width >= 900px) {
+  main .section.dark h2 {
+    font-size: 72px;
+    letter-spacing: -0.01em;
+  }
+}
+
+main .section.dark p {
+  color: var(--color-text-muted);
+}
+
+/* Label text in dark sections (first p, small uppercase) */
+main .section.dark > div > p:first-child {
+  font-size: var(--label-font-size);
+  font-weight: var(--label-font-weight);
+  letter-spacing: var(--label-letter-spacing);
+  text-transform: var(--label-text-transform);
+  color: var(--color-accent-ember);
+  margin: 0 0 var(--gap-md);
+}
+
+/* Body text in dark sections — more muted */
+main .section.dark > div > p:not(:first-child, :last-child) {
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgb(245 245 243 / 55%);
+  margin: 0 0 36px;
+}
+
+/* Drop date (ember, monospace, tracked) */
+main .section.dark > div > p.drop-date {
+  font-family: "Courier New", monospace;
+  font-size: 19.5px;
+  letter-spacing: 3.12px;
+  color: var(--color-accent-ember);
+  margin: 0 0 40px;
+}
+
+@media (width >= 900px) {
+  main .section.dark > div > p.drop-date {
+    font-size: 28px;
+    letter-spacing: 4.48px;
+  }
+}
+
+main .section.dark a:any-link {
+  color: var(--color-text-light);
+}
+
+/* Solid button in dark sections */
+main .section.dark a.button:any-link {
+  background-color: var(--color-text-light);
+  border-color: var(--color-text-light);
+  color: var(--color-text);
+}
+
+main .section.dark a.button:hover {
+  background-color: transparent;
+  color: var(--color-text-light);
+  border-color: var(--color-border-light);
+}
+
+/* Section Metadata — hide the block itself */
+main .section-metadata {
+  display: none;
+}
+
+/* Metadata block and its section — hide entirely */
+main .metadata {
+  display: none;
+}
+
+main .section.metadata-container {
+  display: none;
+}
+
+/* Manifesto / Quote styling for dark sections (single-paragraph section) */
+main .section.dark .default-content-wrapper > p:only-child {
+  font-family: var(--serif-font-family);
+  font-size: var(--heading-font-size-l);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--color-text-faint);
+  text-align: center;
+  text-transform: none;
+  letter-spacing: normal;
   margin: 0;
   padding: 40px 0;
+}
+
+@media (width >= 900px) {
+  main .section.dark .default-content-wrapper > p:only-child {
+    font-size: 42px;
+    line-height: 1.3;
+    padding: 60px 0;
+  }
 }
