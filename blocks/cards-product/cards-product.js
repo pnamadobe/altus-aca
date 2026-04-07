@@ -1,10 +1,22 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 
-const COLORWAYS = [
-  { name: 'Obsidian', color: '#1c1c1e', slug: 'obsidian' },
-  { name: 'Glacier White', color: '#e8e5df', slug: 'glacier' },
-  { name: 'Ember', color: '#c4622d', slug: 'ember' },
-];
+const COLORWAY_SETS = {
+  summit: [
+    { name: 'Obsidian', color: '#1c1c1e', slug: 'obsidian' },
+    { name: 'Glacier White', color: '#e8e5df', slug: 'glacier' },
+    { name: 'Ember', color: '#c4622d', slug: 'ember' },
+  ],
+  traverse: [
+    { name: 'Dusk', color: '#8b7355', slug: 'dusk' },
+    { name: 'Glacier White', color: '#e8e5df', slug: 'glacier' },
+    { name: 'Pine', color: '#2d4a3a', slug: 'pine' },
+    { name: 'Slate', color: '#8a8a8e', slug: 'slate' },
+  ],
+};
+
+// Build regex from all known colorway slugs
+const ALL_SLUGS = [...new Set(Object.values(COLORWAY_SETS).flat().map((c) => c.slug))];
+const SLUG_PATTERN = ALL_SLUGS.join('|');
 
 export default function decorate(block) {
   const ul = document.createElement('ul');
@@ -19,52 +31,54 @@ export default function decorate(block) {
       }
     });
 
-    // Move badge ("Summit") from body into image area as overlay
+    // Move badge from body into image area as overlay and detect collection
     const body = li.querySelector('.cards-product-card-body');
     const imageWrap = li.querySelector('.cards-product-card-image');
+    let collectionKey = 'summit'; // default
+
     if (body && imageWrap) {
       const firstP = body.querySelector('p:first-child');
-      if (firstP && firstP.textContent.trim().toLowerCase() === 'summit') {
+      if (firstP) {
+        const badgeText = firstP.textContent.trim();
+        collectionKey = badgeText.toLowerCase();
         const badge = document.createElement('span');
         badge.className = 'cards-product-badge';
-        badge.textContent = firstP.textContent.trim();
+        badge.textContent = badgeText;
         imageWrap.append(badge);
         firstP.remove();
       }
     }
 
-    // Derive base URL pattern for colorway switching from the original img src
+    const colorways = COLORWAY_SETS[collectionKey] || COLORWAY_SETS.summit;
+
+    // Derive base URL pattern for colorway switching
     const origImg = imageWrap?.querySelector('img');
     const origSrc = origImg?.getAttribute('src') || '';
-    // Match e.g. ".../shell-obsidian.png" → base=".../", product="shell-", ext=".png"
-    const srcMatch = origSrc.match(/^(.+\/)([a-z]+-)(obsidian|glacier|ember)\.(png|jpg|webp)$/i);
+    const slugRegex = new RegExp(`^(.+/)(.+[-_])(${SLUG_PATTERN})\\.(png|jpg|webp)$`, 'i');
+    const srcMatch = origSrc.match(slugRegex);
 
     // Add colorway swatches with click-to-swap
     if (body) {
       const swatchContainer = document.createElement('div');
       swatchContainer.className = 'cards-product-swatches';
-      COLORWAYS.forEach((cw, idx) => {
+      colorways.forEach((cw, idx) => {
         const dot = document.createElement('button');
         dot.className = idx === 0 ? 'cards-product-swatch active' : 'cards-product-swatch';
         dot.setAttribute('aria-label', cw.name);
         dot.style.backgroundColor = cw.color;
         dot.addEventListener('click', (e) => {
           e.stopPropagation();
-          // Update active state
           swatchContainer.querySelectorAll('.cards-product-swatch').forEach((s) => s.classList.remove('active'));
           dot.classList.add('active');
-          // Swap image — find img fresh from the DOM (not stale reference)
           if (srcMatch) {
             const currentImg = li.querySelector('.cards-product-card-image img');
             if (currentImg) {
               const newSrc = `${srcMatch[1]}${srcMatch[2]}${cw.slug}.${srcMatch[4]}`;
               currentImg.src = newSrc;
-              // Also update srcset on source elements
-              const sources = li.querySelectorAll('.cards-product-card-image source');
-              sources.forEach((source) => {
+              const replaceRegex = new RegExp(`/${srcMatch[2]}(?:${SLUG_PATTERN})\\.`, 'i');
+              li.querySelectorAll('.cards-product-card-image source').forEach((source) => {
                 const oldSrcset = source.getAttribute('srcset') || '';
-                const newSrcset = oldSrcset.replace(/\/[a-z]+-(?:obsidian|glacier|ember)\./i, `/${srcMatch[2]}${cw.slug}.`);
-                source.setAttribute('srcset', newSrcset);
+                source.setAttribute('srcset', oldSrcset.replace(replaceRegex, `/${srcMatch[2]}${cw.slug}.`));
               });
             }
           }
