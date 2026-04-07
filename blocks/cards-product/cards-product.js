@@ -64,12 +64,13 @@ export default function decorate(block) {
     const srcMatch = origSrc.match(slugRegex);
 
     // Add colorway swatches with click-to-swap
+    const currentSlug = srcMatch ? srcMatch[3].toLowerCase() : '';
     if (body) {
       const swatchContainer = document.createElement('div');
       swatchContainer.className = 'cards-product-swatches';
-      colorways.forEach((cw, idx) => {
+      colorways.forEach((cw) => {
         const dot = document.createElement('button');
-        dot.className = idx === 0 ? 'cards-product-swatch active' : 'cards-product-swatch';
+        dot.className = cw.slug === currentSlug ? 'cards-product-swatch active' : 'cards-product-swatch';
         dot.setAttribute('aria-label', cw.name);
         dot.style.backgroundColor = cw.color;
         dot.addEventListener('click', (e) => {
