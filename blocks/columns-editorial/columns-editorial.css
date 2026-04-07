@@ -120,3 +120,55 @@
 .columns-editorial > div > div:not(.columns-editorial-img-col) > p:last-child a:hover {
   opacity: 0.7;
 }
+
+/* === Dark section overrides (Origin page) === */
+
+/* No gradient on image when in dark section */
+.section.dark .columns-editorial .columns-editorial-img-col::after {
+  display: none;
+}
+
+/* Dark background on text column */
+.section.dark .columns-editorial > div > div:not(.columns-editorial-img-col) {
+  background-color: var(--color-bg-dark);
+}
+
+/* 50/50 grid with gap, text left image right in dark section */
+@media (width >= 900px) {
+  .section.dark .columns-editorial > div {
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+  }
+
+  .section.dark .columns-editorial .columns-editorial-img-col {
+    order: 1;
+  }
+
+  .section.dark .columns-editorial > div > div:not(.columns-editorial-img-col) {
+    order: 0;
+  }
+}
+
+/* Dark section text colors */
+.section.dark .columns-editorial h2,
+.section.dark .columns-editorial h3 {
+  color: var(--color-text-light);
+}
+
+.section.dark .columns-editorial > div > div:not(.columns-editorial-img-col) > p:first-child {
+  color: var(--color-accent-ember);
+}
+
+.section.dark .columns-editorial > div > div:not(.columns-editorial-img-col) > p:nth-child(3),
+.section.dark .columns-editorial > div > div:not(.columns-editorial-img-col) > p:nth-child(4),
+.section.dark .columns-editorial > div > div:not(.columns-editorial-img-col) > p:nth-child(5) {
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgb(245 245 243 / 50%);
+  font-style: normal;
+}
+
+.section.dark .columns-editorial > div > div:not(.columns-editorial-img-col) > p:last-child a {
+  color: var(--color-text-light);
+  border-bottom-color: var(--color-text-light);
+}
