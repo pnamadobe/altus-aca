@@ -173,7 +173,7 @@
 }
 
 .section.dark .cards-product > ul > li {
-  flex: 0 0 calc(25% - 15px);
+  flex: 0 0 calc((100% - 60px) / 4.5);
   scroll-snap-align: start;
 }
 
