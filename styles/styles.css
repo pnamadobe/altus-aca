@@ -273,6 +273,38 @@ main .section.dark > .default-content-wrapper {
   margin-right: auto;
 }
 
+/* Dark section with h1 — page header style (left-aligned, full-width) */
+main .section.dark > .default-content-wrapper:has(h1) {
+  max-width: var(--content-max-width);
+  text-align: left;
+  padding-top: 120px;
+}
+
+main .section.dark .default-content-wrapper h1 {
+  font-size: 40px;
+  letter-spacing: -0.02em;
+  margin: 0 0 8px;
+}
+
+@media (width >= 900px) {
+  main .section.dark .default-content-wrapper h1 {
+    font-size: 72px;
+  }
+}
+
+/* Label in dark page header — muted */
+main .section.dark > .default-content-wrapper:has(h1) > p:first-child {
+  color: rgb(245 245 243 / 50%);
+}
+
+/* Subtitle in dark page header */
+main .section.dark > .default-content-wrapper:has(h1) > p:last-child {
+  font-size: 14px;
+  color: rgb(245 245 243 / 60%);
+  letter-spacing: normal;
+  text-transform: none;
+}
+
 main .section.dark h1,
 main .section.dark h2,
 main .section.dark h3,
