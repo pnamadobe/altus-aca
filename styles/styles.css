@@ -262,18 +262,106 @@ main .section.dark {
   background-color: var(--color-bg-dark);
 }
 
+/* --- Dark section: general rules (order matters for specificity) --- */
 main .section.dark > div {
   color: var(--color-text-light);
   text-align: center;
 }
 
+main .section.dark h1,
+main .section.dark h2,
+main .section.dark h3,
+main .section.dark h4,
+main .section.dark h5,
+main .section.dark h6 {
+  color: var(--color-text-light);
+}
+
+main .section.dark p {
+  color: var(--color-text-muted);
+}
+
+main .section.dark a:any-link {
+  color: var(--color-text-light);
+}
+
+/* --- Dark section: Origin Drop style (centered, narrow) --- */
 main .section.dark > .default-content-wrapper {
   max-width: 560px;
   margin-left: auto;
   margin-right: auto;
 }
 
-/* Dark section with h1 — page header style (left-aligned, full-width) */
+/* Full-width image in dark section (only child is a picture) */
+main .section.dark > .default-content-wrapper:has(> p:only-child picture) {
+  max-width: unset;
+  padding: 0;
+}
+
+main .section.dark > .default-content-wrapper > p:only-child picture img {
+  width: 100%;
+  display: block;
+}
+
+main .section.dark h2 {
+  font-size: 39px;
+  letter-spacing: -0.01em;
+  margin: 0 0 var(--gap-md);
+}
+
+@media (width >= 900px) {
+  main .section.dark h2 {
+    font-size: 72px;
+    letter-spacing: -0.01em;
+  }
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.dark > div > p:first-child {
+  font-size: var(--label-font-size);
+  font-weight: var(--label-font-weight);
+  letter-spacing: var(--label-letter-spacing);
+  text-transform: var(--label-text-transform);
+  color: var(--color-accent-ember);
+  margin: 0 0 var(--gap-md);
+}
+
+main .section.dark > div > p:not(:first-child, :last-child) {
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgb(245 245 243 / 55%);
+  margin: 0 0 36px;
+}
+
+main .section.dark > div > p.drop-date {
+  font-family: "Courier New", monospace;
+  font-size: 19.5px;
+  letter-spacing: 3.12px;
+  color: var(--color-accent-ember);
+  margin: 0 0 40px;
+}
+
+@media (width >= 900px) {
+  main .section.dark > div > p.drop-date {
+    font-size: 28px;
+    letter-spacing: 4.48px;
+  }
+}
+
+main .section.dark a.button:any-link {
+  background-color: var(--color-text-light);
+  border-color: var(--color-text-light);
+  color: var(--color-text);
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.dark a.button:hover {
+  background-color: transparent;
+  color: var(--color-text-light);
+  border-color: var(--color-border-light);
+}
+
+/* --- Dark section: page header style (has h1, left-aligned, full-width) --- */
 main .section.dark > .default-content-wrapper:has(h1) {
   max-width: var(--content-max-width);
   text-align: left;
@@ -292,12 +380,10 @@ main .section.dark .default-content-wrapper h1 {
   }
 }
 
-/* Label in dark page header — muted */
 main .section.dark > .default-content-wrapper:has(h1) > p:first-child {
   color: rgb(245 245 243 / 50%);
 }
 
-/* Subtitle in dark page header */
 main .section.dark > .default-content-wrapper:has(h1) > p:last-child {
   font-size: 14px;
   color: rgb(245 245 243 / 60%);
@@ -305,99 +391,8 @@ main .section.dark > .default-content-wrapper:has(h1) > p:last-child {
   text-transform: none;
 }
 
-main .section.dark h1,
-main .section.dark h2,
-main .section.dark h3,
-main .section.dark h4,
-main .section.dark h5,
-main .section.dark h6 {
-  color: var(--color-text-light);
-}
-
-/* Larger heading in dark sections */
-main .section.dark h2 {
-  font-size: 39px;
-  letter-spacing: -0.01em;
-  margin: 0 0 var(--gap-md);
-}
-
-@media (width >= 900px) {
-  main .section.dark h2 {
-    font-size: 72px;
-    letter-spacing: -0.01em;
-  }
-}
-
-main .section.dark p {
-  color: var(--color-text-muted);
-}
-
-/* Label text in dark sections (first p, small uppercase) */
-main .section.dark > div > p:first-child {
-  font-size: var(--label-font-size);
-  font-weight: var(--label-font-weight);
-  letter-spacing: var(--label-letter-spacing);
-  text-transform: var(--label-text-transform);
-  color: var(--color-accent-ember);
-  margin: 0 0 var(--gap-md);
-}
-
-/* Body text in dark sections — more muted */
-main .section.dark > div > p:not(:first-child, :last-child) {
-  font-size: 14px;
-  line-height: 1.6;
-  color: rgb(245 245 243 / 55%);
-  margin: 0 0 36px;
-}
-
-/* Drop date (ember, monospace, tracked) */
-main .section.dark > div > p.drop-date {
-  font-family: "Courier New", monospace;
-  font-size: 19.5px;
-  letter-spacing: 3.12px;
-  color: var(--color-accent-ember);
-  margin: 0 0 40px;
-}
-
-@media (width >= 900px) {
-  main .section.dark > div > p.drop-date {
-    font-size: 28px;
-    letter-spacing: 4.48px;
-  }
-}
-
-main .section.dark a:any-link {
-  color: var(--color-text-light);
-}
-
-/* Solid button in dark sections */
-main .section.dark a.button:any-link {
-  background-color: var(--color-text-light);
-  border-color: var(--color-text-light);
-  color: var(--color-text);
-}
-
-main .section.dark a.button:hover {
-  background-color: transparent;
-  color: var(--color-text-light);
-  border-color: var(--color-border-light);
-}
-
-/* Section Metadata — hide the block itself */
-main .section-metadata {
-  display: none;
-}
-
-/* Metadata block and its section — hide entirely */
-main .metadata {
-  display: none;
-}
-
-main .section.metadata-container {
-  display: none;
-}
-
-/* Manifesto / Quote styling for dark sections (single-paragraph section) */
+/* --- Dark section: manifesto quote (single-paragraph section) --- */
+/* stylelint-disable-next-line no-descending-specificity */
 main .section.dark .default-content-wrapper > p:only-child {
   font-family: var(--serif-font-family);
   font-size: var(--heading-font-size-l);
@@ -418,4 +413,17 @@ main .section.dark .default-content-wrapper > p:only-child {
     line-height: 1.3;
     padding: 60px 0;
   }
+}
+
+/* --- Section Metadata & Metadata — hide --- */
+main .section-metadata {
+  display: none;
+}
+
+main .metadata {
+  display: none;
+}
+
+main .section.metadata-container {
+  display: none;
 }
