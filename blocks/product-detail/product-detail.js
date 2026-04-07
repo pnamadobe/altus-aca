@@ -275,7 +275,7 @@ function openCartDrawer(product, colorName, sizeName, colorObj, doc) {
   // Header
   const header = doc.createElement('div');
   header.className = 'cart-drawer-header';
-  header.innerHTML = `<h3>YOUR BAG (1)</h3>`;
+  header.innerHTML = '<h3>YOUR BAG (1)</h3>';
   const closeBtn = doc.createElement('button');
   closeBtn.className = 'cart-drawer-close';
   closeBtn.textContent = '×';
@@ -332,6 +332,9 @@ function openCartDrawer(product, colorName, sizeName, colorObj, doc) {
     <button class="cart-drawer-checkout">Proceed to Checkout</button>
     <button class="cart-drawer-continue">Continue Shopping</button>
   `;
+  footer.querySelector('.cart-drawer-checkout').addEventListener('click', () => {
+    window.location.href = '/checkout';
+  });
   footer.querySelector('.cart-drawer-continue').addEventListener('click', () => {
     drawer.classList.remove('open');
     backdrop.classList.remove('open');
