@@ -25,11 +25,9 @@ const COLORWAY_SETS = {
     { name: 'Bone', color: '#e5ddd0', slug: 'bone' },
   ],
   origin: [
-    { name: 'Obsidian', color: '#1c1c1e', slug: 'obsidian' },
-    { name: 'Burgundy', color: '#6b2a3a', slug: 'burgundy' },
     { name: 'Glacier', color: '#e8e5df', slug: 'glacier' },
-    { name: 'Olive', color: '#4a4a2a', slug: 'olive' },
-    { name: 'Red', color: '#c43a2d', slug: 'red' },
+    { name: 'Burgundy', color: '#6b2a3a', slug: 'burgundy' },
+    { name: 'Obsidian', color: '#1c1c1e', slug: 'obsidian' },
   ],
 };
 
