@@ -70,15 +70,13 @@ function formatPrice(cents) {
 
 function updateBagCounter() {
   const count = getCartCount();
-  document.querySelectorAll('.nav-bag-count, [class*="bag"]').forEach((el) => {
-    if (el.textContent.includes('Bag')) {
-      el.textContent = `Bag (${count})`;
+  // Only update the nav bag link — not any other element containing "Bag"
+  const navTools = document.querySelector('.nav-tools');
+  if (navTools) {
+    const bagLink = navTools.querySelector('a');
+    if (bagLink && bagLink.textContent.includes('Bag')) {
+      bagLink.textContent = `Bag (${count})`;
     }
-  });
-  // Also try nav tools
-  const bagLink = document.querySelector('a[href="#"]');
-  if (bagLink && bagLink.textContent.includes('Bag')) {
-    bagLink.textContent = `Bag (${count})`;
   }
 }
 
