@@ -158,13 +158,18 @@
 
 /* === Dark section: horizontal scroll carousel (Origin page) === */
 
+.section.dark .cards-product-wrapper {
+  max-width: unset;
+  padding: 0;
+}
+
 .section.dark .cards-product > ul {
   display: flex;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   gap: 20px;
-  padding-bottom: 8px;
+  padding: 0 48px 8px;
 }
 
 /* Hide scrollbar but keep functionality */
