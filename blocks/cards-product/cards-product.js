@@ -106,6 +106,21 @@ export default function decorate(block) {
       body.append(swatchContainer);
     }
 
+    // Make card clickable — derive product slug from name
+    if (body) {
+      const nameP = body.querySelector('p:first-child');
+      if (nameP) {
+        const productName = nameP.textContent.trim();
+        const slug = productName.toLowerCase().replace(/\s+/g, '-');
+        li.dataset.href = `/content/product?id=${slug}`;
+        li.style.cursor = 'pointer';
+        li.addEventListener('click', (e) => {
+          if (e.target.closest('.cards-product-swatch')) return;
+          window.location.href = li.dataset.href;
+        });
+      }
+    }
+
     // Detect locked/mystery cards — no image in the image cell
     const hasImage = imageWrap?.querySelector('picture, img');
     if (!hasImage && imageWrap) {
