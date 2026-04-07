@@ -18,6 +18,12 @@ const COLORWAY_SETS = {
     { name: 'Blush', color: '#c4a3a0', slug: 'blush' },
     { name: 'Navy', color: '#1c2b4a', slug: 'navy' },
   ],
+  foundation: [
+    { name: 'Obsidian', color: '#1c1c1e', slug: 'obsidian' },
+    { name: 'Glacier White', color: '#e8e5df', slug: 'glacier' },
+    { name: 'Slate', color: '#8a8a8e', slug: 'slate' },
+    { name: 'Bone', color: '#e5ddd0', slug: 'bone' },
+  ],
 };
 
 // Build regex from all known colorway slugs
