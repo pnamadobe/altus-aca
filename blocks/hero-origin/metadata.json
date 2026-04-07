@@ -1,0 +1,31 @@
+{
+  "variantName": "hero-origin",
+  "baseBlock": "hero",
+  "version": "1.0.0",
+  "created": "2026-04-07T19:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://altus-c2n.pages.dev/origin",
+    "originPage": "origin drop page hero",
+    "blockPosition": "top"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "spacious",
+    "purpose": "origin-drop-hero",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "label + heading + subtitle + date + CTA",
+    "buttonCount": 1,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": ["product drop landing pages", "dark immersive hero with large title"],
+    "notSuitableFor": ["collection pages", "standard hero banners"]
+  },
+  "usage": {
+    "pagesUsing": ["/origin"],
+    "reuseCount": 1,
+    "lastUsed": "2026-04-07T19:00:00.000Z"
+  }
+}
