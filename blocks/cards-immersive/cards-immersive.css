@@ -1,0 +1,135 @@
+/* Cards Immersive — 2×2 grid of full-height video tiles with overlay text */
+
+.cards-immersive-container .cards-immersive-wrapper {
+  max-width: unset;
+  padding: 0;
+}
+
+.cards-immersive > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+@media (width >= 900px) {
+  .cards-immersive > ul {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.cards-immersive > ul > li {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  cursor: pointer;
+  border: none;
+  background-color: var(--color-bg-dark);
+}
+
+@media (width >= 900px) {
+  .cards-immersive > ul > li {
+    height: 100vh;
+  }
+}
+
+/* Video/image fills tile */
+.cards-immersive .cards-immersive-card-image {
+  position: absolute;
+  inset: 0;
+  line-height: 0;
+}
+
+.cards-immersive .cards-immersive-card-image video,
+.cards-immersive .cards-immersive-card-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Gradient overlay */
+.cards-immersive .cards-immersive-card-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgb(10 10 10 / 0%) 40%, rgb(10 10 10 / 75%) 100%);
+}
+
+/* Text overlay at bottom-left */
+.cards-immersive .cards-immersive-card-body {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 32px;
+  z-index: 1;
+  margin: 0;
+}
+
+/* Tag */
+.cards-immersive .cards-immersive-card-body > p:first-child {
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--color-text-light);
+  margin: 0 0 8px;
+}
+
+/* Title */
+.cards-immersive .cards-immersive-card-body h3 {
+  font-size: 32px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  text-transform: none;
+  color: var(--color-text-light);
+  margin: 0 0 8px;
+  line-height: 1;
+}
+
+@media (width >= 900px) {
+  .cards-immersive .cards-immersive-card-body h3 {
+    font-size: 48px;
+  }
+}
+
+/* Description */
+.cards-immersive .cards-immersive-card-body > p:nth-child(3) {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--color-text-light);
+  margin: 0 0 12px;
+}
+
+/* CTA — reset button decoration */
+.cards-immersive .cards-immersive-card-body .button-container {
+  margin: 0;
+}
+
+.cards-immersive .cards-immersive-card-body a.button:any-link {
+  display: inline;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  background: none;
+  white-space: normal;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 1.98px;
+  text-transform: uppercase;
+  color: var(--color-text-light);
+  text-decoration: none;
+  border-bottom: 1px solid rgb(245 245 243 / 40%);
+  padding-bottom: 2px;
+}
+
+.cards-immersive .cards-immersive-card-body a.button:hover {
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--color-text-light);
+  color: var(--color-text-light);
+  opacity: 1;
+}

@@ -1,0 +1,38 @@
+{
+  "variantName": "cards-immersive",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-04-07T18:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://altus-c2n.pages.dev/collections",
+    "originPage": "collections overview",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "spacious",
+    "purpose": "immersive-tiles",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "video/image + tag + title + description + CTA",
+    "buttonCount": 1,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "collection overview pages",
+      "full-viewport immersive tile grids",
+      "category landing pages with video backgrounds"
+    ],
+    "notSuitableFor": [
+      "small product card grids",
+      "compact card layouts"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/collections"],
+    "reuseCount": 1,
+    "lastUsed": "2026-04-07T18:00:00.000Z"
+  }
+}

@@ -197,7 +197,7 @@
       "description": "Collections overview page with 4 collection tiles",
       "blocks": [
         {
-          "name": "cards-collection",
+          "name": "cards-immersive",
           "instances": [
             ".collections-grid"
           ]
