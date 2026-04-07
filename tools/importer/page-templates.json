@@ -188,6 +188,21 @@
           ]
         }
       ]
+    },
+    {
+      "name": "collections-overview",
+      "urls": [
+        "https://altus-c2n.pages.dev/collections"
+      ],
+      "description": "Collections overview page with 4 collection tiles",
+      "blocks": [
+        {
+          "name": "cards-collection",
+          "instances": [
+            ".collections-grid"
+          ]
+        }
+      ]
     }
   ]
 }
