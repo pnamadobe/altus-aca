@@ -12,6 +12,12 @@ const COLORWAY_SETS = {
     { name: 'Pine', color: '#2d4a3a', slug: 'pine' },
     { name: 'Slate', color: '#8a8a8e', slug: 'slate' },
   ],
+  studio: [
+    { name: 'Obsidian', color: '#1c1c1e', slug: 'obsidian' },
+    { name: 'Glacier', color: '#e8e5df', slug: 'glacier' },
+    { name: 'Blush', color: '#c4a3a0', slug: 'blush' },
+    { name: 'Navy', color: '#1c2b4a', slug: 'navy' },
+  ],
 };
 
 // Build regex from all known colorway slugs

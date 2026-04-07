@@ -135,7 +135,8 @@
       "name": "collection-page",
       "urls": [
         "https://altus-c2n.pages.dev/collection-summit",
-        "https://altus-c2n.pages.dev/collection-traverse"
+        "https://altus-c2n.pages.dev/collection-traverse",
+        "https://altus-c2n.pages.dev/collection-studio"
       ],
       "description": "Product collection page with hero, product grid, and editorial content",
       "blocks": [
