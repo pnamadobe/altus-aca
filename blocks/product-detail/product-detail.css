@@ -1,11 +1,27 @@
 /* Product Detail Page */
 
+/* Force solid white nav on product pages */
+.product-detail-container ~ .nav-wrapper,
+body:has(.product-detail) .nav-wrapper {
+  background-color: var(--color-bg) !important;
+  border-bottom: 1px solid rgb(0 0 0 / 8%);
+}
+
+body:has(.product-detail) .nav-wrapper nav {
+  color: var(--color-text) !important;
+}
+
+/* Drop content below the fixed nav */
+.product-detail-container {
+  padding-top: var(--nav-height);
+}
+
 /* Hero layout: gallery left, info right */
 .pdp-hero {
   display: flex;
   flex-direction: column;
   gap: 32px;
-  padding: 0 24px;
+  padding: 24px 24px 0;
   max-width: var(--content-max-width);
   margin: 0 auto;
 }
@@ -15,7 +31,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 48px;
-    padding: 40px 48px;
+    padding: 40px 48px 0;
   }
 }
 
