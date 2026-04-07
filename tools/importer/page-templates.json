@@ -203,6 +203,34 @@
           ]
         }
       ]
+    },
+    {
+      "name": "origin-drop",
+      "urls": [
+        "https://altus-c2n.pages.dev/origin"
+      ],
+      "description": "Origin collaboration drop page with dark theme, product grid, and editorial sections",
+      "blocks": [
+        {
+          "name": "hero-collection",
+          "instances": [
+            ".origin-hero"
+          ]
+        },
+        {
+          "name": "columns-editorial",
+          "instances": [
+            ".editorial-feature",
+            ".editorial-break"
+          ]
+        },
+        {
+          "name": "cards-product",
+          "instances": [
+            ".collection-grid"
+          ]
+        }
+      ]
     }
   ]
 }

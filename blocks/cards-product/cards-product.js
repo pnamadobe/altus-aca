@@ -24,6 +24,13 @@ const COLORWAY_SETS = {
     { name: 'Slate', color: '#8a8a8e', slug: 'slate' },
     { name: 'Bone', color: '#e5ddd0', slug: 'bone' },
   ],
+  origin: [
+    { name: 'Obsidian', color: '#1c1c1e', slug: 'obsidian' },
+    { name: 'Burgundy', color: '#6b2a3a', slug: 'burgundy' },
+    { name: 'Glacier', color: '#e8e5df', slug: 'glacier' },
+    { name: 'Olive', color: '#4a4a2a', slug: 'olive' },
+    { name: 'Red', color: '#c43a2d', slug: 'red' },
+  ],
 };
 
 // Build regex from all known colorway slugs
