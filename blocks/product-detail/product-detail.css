@@ -500,6 +500,18 @@ body:has(.product-detail) .nav-wrapper nav {
   min-height: 0;
 }
 
+.cart-drawer-items {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.cart-drawer-empty {
+  padding: 48px 24px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--color-accent-slate);
+}
+
 /* Cart item */
 .cart-drawer-item {
   display: grid;
@@ -510,6 +522,7 @@ body:has(.product-detail) .nav-wrapper nav {
   border-bottom: 1px solid rgb(0 0 0 / 6%);
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 .cart-drawer-item img {
   width: 100px;
   height: 120px;

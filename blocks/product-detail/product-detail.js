@@ -124,8 +124,20 @@ function buildInfo(product, document) {
     const selectedColor = info.querySelector('.pdp-swatch.active')?.getAttribute('aria-label') || product.colors[0].name;
     const selectedSize = info.querySelector('.pdp-size-btn.active')?.textContent || '';
     const colorImg = product.colors.find((c) => c.name === selectedColor);
+    const productId = getProductId();
+    // Add to cart
+    if (window.AltusCart) {
+      window.AltusCart.addToCart({
+        id: productId,
+        name: product.name,
+        color: selectedColor,
+        size: selectedSize,
+        price: product.price,
+        image: colorImg ? `https://altus-c2n.pages.dev/${colorImg.image}` : '',
+      });
+    }
     // eslint-disable-next-line no-use-before-define
-    openCartDrawer(product, selectedColor, selectedSize, colorImg, document);
+    openCartDrawer(document);
   });
   info.append(addBtn);
 
@@ -262,12 +274,27 @@ function buildEditorial(product, document) {
   return section;
 }
 
-function openCartDrawer(product, colorName, sizeName, colorObj, doc) {
-  // Remove existing drawer if any
+function closeDrawer() {
+  const drawer = document.querySelector('.cart-drawer');
+  const backdrop = document.querySelector('.cart-drawer-backdrop');
+  if (drawer) drawer.classList.remove('open');
+  if (backdrop) backdrop.classList.remove('open');
+  setTimeout(() => { drawer?.remove(); backdrop?.remove(); }, 300);
+}
+
+function renderCartDrawer() {
+  const doc = document;
+  const cart = window.AltusCart ? window.AltusCart.getCart() : [];
+  const totalCount = window.AltusCart ? window.AltusCart.getCartCount() : 0;
+  const totalPrice = window.AltusCart ? window.AltusCart.getCartTotal() : 0;
+
+  // Remove existing
   doc.querySelector('.cart-drawer')?.remove();
+  doc.querySelector('.cart-drawer-backdrop')?.remove();
 
   const backdrop = doc.createElement('div');
   backdrop.className = 'cart-drawer-backdrop';
+  backdrop.addEventListener('click', closeDrawer);
 
   const drawer = doc.createElement('div');
   drawer.className = 'cart-drawer';
@@ -275,51 +302,100 @@ function openCartDrawer(product, colorName, sizeName, colorObj, doc) {
   // Header
   const header = doc.createElement('div');
   header.className = 'cart-drawer-header';
-  header.innerHTML = '<h3>YOUR BAG (1)</h3>';
+  header.innerHTML = `<h3>YOUR BAG (${totalCount})</h3>`;
   const closeBtn = doc.createElement('button');
   closeBtn.className = 'cart-drawer-close';
   closeBtn.textContent = '×';
-  closeBtn.addEventListener('click', () => {
-    drawer.classList.remove('open');
-    backdrop.classList.remove('open');
-    setTimeout(() => { drawer.remove(); backdrop.remove(); }, 300);
-  });
+  closeBtn.addEventListener('click', closeDrawer);
   header.append(closeBtn);
   drawer.append(header);
 
-  // Item
-  const item = doc.createElement('div');
-  item.className = 'cart-drawer-item';
+  // Items
+  const itemsContainer = doc.createElement('div');
+  itemsContainer.className = 'cart-drawer-items';
 
-  const itemImg = doc.createElement('img');
-  itemImg.src = colorObj ? `https://altus-c2n.pages.dev/${colorObj.image}` : '';
-  itemImg.alt = product.name;
-  item.append(itemImg);
+  if (cart.length === 0) {
+    const empty = doc.createElement('p');
+    empty.className = 'cart-drawer-empty';
+    empty.textContent = 'Your bag is empty.';
+    itemsContainer.append(empty);
+  } else {
+    cart.forEach((cartItem, idx) => {
+      const item = doc.createElement('div');
+      item.className = 'cart-drawer-item';
 
-  const itemInfo = doc.createElement('div');
-  itemInfo.className = 'cart-drawer-item-info';
-  itemInfo.innerHTML = `
-    <div class="cart-drawer-item-name">${product.name.toUpperCase()}</div>
-    <div class="cart-drawer-item-variant">${colorName}${sizeName ? ` / ${sizeName}` : ''}</div>
-    <div class="cart-drawer-item-qty">
-      <button class="cart-qty-btn">−</button>
-      <span>1</span>
-      <button class="cart-qty-btn">+</button>
-    </div>
-  `;
-  item.append(itemInfo);
+      const itemImg = doc.createElement('img');
+      itemImg.src = cartItem.image;
+      itemImg.alt = cartItem.name;
+      item.append(itemImg);
 
-  const itemPrice = doc.createElement('div');
-  itemPrice.className = 'cart-drawer-item-price';
-  itemPrice.textContent = product.price;
-  item.append(itemPrice);
+      const itemInfo = doc.createElement('div');
+      itemInfo.className = 'cart-drawer-item-info';
 
-  const itemRemove = doc.createElement('button');
-  itemRemove.className = 'cart-drawer-item-remove';
-  itemRemove.textContent = '×';
-  item.append(itemRemove);
+      const itemName = doc.createElement('div');
+      itemName.className = 'cart-drawer-item-name';
+      itemName.textContent = cartItem.name.toUpperCase();
+      itemInfo.append(itemName);
 
-  drawer.append(item);
+      const itemVariant = doc.createElement('div');
+      itemVariant.className = 'cart-drawer-item-variant';
+      itemVariant.textContent = `${cartItem.color}${cartItem.size ? ` / ${cartItem.size}` : ''}`;
+      itemInfo.append(itemVariant);
+
+      const qtyWrap = doc.createElement('div');
+      qtyWrap.className = 'cart-drawer-item-qty';
+      const minusBtn = doc.createElement('button');
+      minusBtn.className = 'cart-qty-btn';
+      minusBtn.textContent = '−';
+      minusBtn.addEventListener('click', () => {
+        window.AltusCart.updateQty(idx, -1);
+        renderCartDrawer();
+        // Reopen immediately
+        requestAnimationFrame(() => {
+          doc.querySelector('.cart-drawer-backdrop')?.classList.add('open');
+          doc.querySelector('.cart-drawer')?.classList.add('open');
+        });
+      });
+      const qtyNum = doc.createElement('span');
+      qtyNum.textContent = cartItem.qty;
+      const plusBtn = doc.createElement('button');
+      plusBtn.className = 'cart-qty-btn';
+      plusBtn.textContent = '+';
+      plusBtn.addEventListener('click', () => {
+        window.AltusCart.updateQty(idx, 1);
+        renderCartDrawer();
+        requestAnimationFrame(() => {
+          doc.querySelector('.cart-drawer-backdrop')?.classList.add('open');
+          doc.querySelector('.cart-drawer')?.classList.add('open');
+        });
+      });
+      qtyWrap.append(minusBtn, qtyNum, plusBtn);
+      itemInfo.append(qtyWrap);
+      item.append(itemInfo);
+
+      const linePrice = parseFloat(cartItem.price.replace(/[$,]/g, '')) * cartItem.qty;
+      const itemPrice = doc.createElement('div');
+      itemPrice.className = 'cart-drawer-item-price';
+      itemPrice.textContent = `$${linePrice.toLocaleString('en-US')}`;
+      item.append(itemPrice);
+
+      const removeBtn = doc.createElement('button');
+      removeBtn.className = 'cart-drawer-item-remove';
+      removeBtn.textContent = '×';
+      removeBtn.addEventListener('click', () => {
+        window.AltusCart.removeFromCart(idx);
+        renderCartDrawer();
+        requestAnimationFrame(() => {
+          doc.querySelector('.cart-drawer-backdrop')?.classList.add('open');
+          doc.querySelector('.cart-drawer')?.classList.add('open');
+        });
+      });
+      item.append(removeBtn);
+
+      itemsContainer.append(item);
+    });
+  }
+  drawer.append(itemsContainer);
 
   // Footer
   const footer = doc.createElement('div');
@@ -327,7 +403,7 @@ function openCartDrawer(product, colorName, sizeName, colorObj, doc) {
   footer.innerHTML = `
     <div class="cart-drawer-subtotal">
       <div><strong>Subtotal</strong><br><span class="cart-drawer-shipping">Shipping calculated at checkout.</span></div>
-      <div class="cart-drawer-total">${product.price}</div>
+      <div class="cart-drawer-total">$${totalPrice.toLocaleString('en-US')}</div>
     </div>
     <button class="cart-drawer-checkout">Proceed to Checkout</button>
     <button class="cart-drawer-continue">Continue Shopping</button>
@@ -335,27 +411,20 @@ function openCartDrawer(product, colorName, sizeName, colorObj, doc) {
   footer.querySelector('.cart-drawer-checkout').addEventListener('click', () => {
     window.location.href = '/checkout';
   });
-  footer.querySelector('.cart-drawer-continue').addEventListener('click', () => {
-    drawer.classList.remove('open');
-    backdrop.classList.remove('open');
-    setTimeout(() => { drawer.remove(); backdrop.remove(); }, 300);
-  });
+  footer.querySelector('.cart-drawer-continue').addEventListener('click', closeDrawer);
   drawer.append(footer);
-
-  backdrop.addEventListener('click', () => {
-    drawer.classList.remove('open');
-    backdrop.classList.remove('open');
-    setTimeout(() => { drawer.remove(); backdrop.remove(); }, 300);
-  });
 
   doc.body.append(backdrop);
   doc.body.append(drawer);
 
-  // Trigger open animation
   requestAnimationFrame(() => {
     backdrop.classList.add('open');
     drawer.classList.add('open');
   });
+}
+
+function openCartDrawer() {
+  renderCartDrawer();
 }
 
 export default async function decorate(block) {

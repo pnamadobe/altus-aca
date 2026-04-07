@@ -202,6 +202,9 @@ async function loadLazy(doc) {
   loadFooter(doc.querySelector('footer'));
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
+
+  // Load cart module
+  await import(`${window.hlx.codeBasePath}/scripts/cart.js`);
   loadFonts();
 }
 
