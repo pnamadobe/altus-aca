@@ -112,7 +112,7 @@ export default function decorate(block) {
       if (nameP) {
         const productName = nameP.textContent.trim();
         const slug = productName.toLowerCase().replace(/\s+/g, '-');
-        li.dataset.href = `/content/product?id=${slug}`;
+        li.dataset.href = `/product?id=${slug}`;
         li.style.cursor = 'pointer';
         li.addEventListener('click', (e) => {
           if (e.target.closest('.cards-product-swatch')) return;

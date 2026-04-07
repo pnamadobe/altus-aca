@@ -197,7 +197,7 @@ function buildRelated(product, allProducts, document) {
     if (!rel) return;
     const card = document.createElement('a');
     card.className = 'pdp-related-card';
-    card.href = `/content/product?id=${relId}`;
+    card.href = `/product?id=${relId}`;
 
     const imgWrap = document.createElement('div');
     imgWrap.className = 'pdp-related-img';

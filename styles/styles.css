@@ -362,6 +362,7 @@ main .section.dark a.button:hover {
 }
 
 /* --- Dark section: page header style (has h1, left-aligned, full-width) --- */
+/* stylelint-disable-next-line no-descending-specificity */
 main .section.dark > .default-content-wrapper:has(h1) {
   max-width: var(--content-max-width);
   text-align: left;
