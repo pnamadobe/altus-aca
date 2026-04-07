@@ -113,6 +113,11 @@ export default function decorate(block) {
     if (!hasImage && imageWrap) {
       li.classList.add('cards-product-locked');
       imageWrap.textContent = '';
+      const lockSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      lockSvg.setAttribute('viewBox', '0 0 24 30');
+      lockSvg.setAttribute('class', 'cards-product-lock-icon');
+      lockSvg.innerHTML = '<rect x="2" y="14" width="20" height="14" rx="2"/><path d="M7 14V9a5 5 0 0 1 10 0v5"/>';
+      imageWrap.append(lockSvg);
     }
 
     ul.append(li);
