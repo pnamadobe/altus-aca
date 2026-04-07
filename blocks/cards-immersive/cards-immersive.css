@@ -21,17 +21,11 @@
 
 .cards-immersive > ul > li {
   position: relative;
-  height: 100vh;
+  aspect-ratio: 4 / 5;
   overflow: hidden;
   cursor: pointer;
   border: none;
   background-color: var(--color-bg-dark);
-}
-
-@media (width >= 900px) {
-  .cards-immersive > ul > li {
-    height: 100vh;
-  }
 }
 
 /* Video/image fills tile */
