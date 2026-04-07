@@ -1,0 +1,12 @@
+{
+  "status": "success",
+  "url": "https://altus-c2n.pages.dev/collection-summit",
+  "path": "collection-summit",
+  "timestamp": "2026-04-07T16:55:15.326Z",
+  "title": "SUMMIT Collection — ALTUS",
+  "template": "collection-page",
+  "blocks": [
+    "hero-collection",
+    "cards-product"
+  ]
+}

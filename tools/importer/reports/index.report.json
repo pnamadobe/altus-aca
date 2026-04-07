@@ -1,0 +1,16 @@
+{
+  "status": "success",
+  "url": "https://altus-c2n.pages.dev/",
+  "path": "index",
+  "timestamp": "2026-04-07T12:44:08.205Z",
+  "title": "ALTUS — Urban Alpine Apparel",
+  "template": "homepage",
+  "blocks": [
+    "hero-banner",
+    "cards-collection",
+    "cards-product",
+    "columns-editorial",
+    "hero-campaign",
+    "hero-band"
+  ]
+}

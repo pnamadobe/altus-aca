@@ -1,0 +1,190 @@
+{
+  "templates": [
+    {
+      "name": "homepage",
+      "urls": [
+        "https://altus-c2n.pages.dev/"
+      ],
+      "description": "Homepage template for Altus C2N site",
+      "blocks": [
+        {
+          "name": "hero-banner",
+          "instances": [
+            "section.hero"
+          ]
+        },
+        {
+          "name": "cards-collection",
+          "instances": [
+            ".product-lines__grid"
+          ]
+        },
+        {
+          "name": "cards-product",
+          "instances": [
+            ".summit-grid__products"
+          ]
+        },
+        {
+          "name": "columns-editorial",
+          "instances": [
+            "section.editorial-feature"
+          ]
+        },
+        {
+          "name": "hero-campaign",
+          "instances": [
+            "section.campaign-band"
+          ]
+        },
+        {
+          "name": "hero-band",
+          "instances": [
+            "section.trail-band"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "section-1",
+          "name": "Hero",
+          "selector": "section.hero",
+          "style": null,
+          "blocks": [
+            "hero-banner"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-2",
+          "name": "Product Lines",
+          "selector": "section.product-lines",
+          "style": null,
+          "blocks": [
+            "cards-collection"
+          ],
+          "defaultContent": [
+            ".product-lines__header"
+          ]
+        },
+        {
+          "id": "section-3",
+          "name": "Summit Product Grid",
+          "selector": "section.summit-grid",
+          "style": null,
+          "blocks": [
+            "cards-product"
+          ],
+          "defaultContent": [
+            ".summit-grid__header"
+          ]
+        },
+        {
+          "id": "section-4",
+          "name": "Editorial Feature",
+          "selector": "section.editorial-feature",
+          "style": null,
+          "blocks": [
+            "columns-editorial"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-5",
+          "name": "Campaign Band",
+          "selector": "section.campaign-band",
+          "style": null,
+          "blocks": [
+            "hero-campaign"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-6",
+          "name": "Origin Drop",
+          "selector": "section.origin-drop",
+          "style": "dark",
+          "blocks": [],
+          "defaultContent": [
+            ".origin-drop__inner"
+          ]
+        },
+        {
+          "id": "section-7",
+          "name": "Trail Band",
+          "selector": "section.trail-band",
+          "style": null,
+          "blocks": [
+            "hero-band"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-8",
+          "name": "Manifesto",
+          "selector": "section.manifesto",
+          "style": "dark",
+          "blocks": [],
+          "defaultContent": [
+            ".manifesto__text"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "collection-page",
+      "urls": [
+        "https://altus-c2n.pages.dev/collection-summit"
+      ],
+      "description": "Product collection page with hero, product grid, and editorial content",
+      "blocks": [
+        {
+          "name": "hero-collection",
+          "instances": [
+            "section.collection-hero"
+          ]
+        },
+        {
+          "name": "cards-product",
+          "instances": [
+            ".collection-grid"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "section-1",
+          "name": "Collection Hero",
+          "selector": "section.collection-hero",
+          "style": null,
+          "blocks": [
+            "hero-collection"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-2",
+          "name": "Collection Grid",
+          "selector": "section.collection-main",
+          "style": null,
+          "blocks": [
+            "cards-product"
+          ],
+          "defaultContent": [
+            ".collection-count"
+          ]
+        },
+        {
+          "id": "section-3",
+          "name": "Manifesto",
+          "selector": "section.manifesto",
+          "style": "dark",
+          "blocks": [],
+          "defaultContent": [
+            ".manifesto__text"
+          ]
+        }
+      ]
+    }
+  ]
+}

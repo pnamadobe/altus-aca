@@ -1,0 +1,38 @@
+{
+  "variantName": "hero-collection",
+  "baseBlock": "hero",
+  "version": "1.0.0",
+  "created": "2026-04-07T16:47:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://altus-c2n.pages.dev/collection-summit",
+    "originPage": "collection page hero",
+    "blockPosition": "top"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "minimal",
+    "purpose": "collection-hero",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "heading + subtitle",
+    "buttonCount": 0,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "collection/category landing pages",
+      "shorter hero banners with centered title",
+      "product line introduction pages"
+    ],
+    "notSuitableFor": [
+      "full homepage heroes with body text and CTA",
+      "campaign bands"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/collection-summit"],
+    "reuseCount": 1,
+    "lastUsed": "2026-04-07T16:47:00.000Z"
+  }
+}

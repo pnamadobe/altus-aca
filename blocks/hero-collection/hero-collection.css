@@ -1,0 +1,93 @@
+/* Hero Collection — Shorter hero with centered title + subtitle over video/image */
+
+.hero-collection-container .hero-collection-wrapper {
+  max-width: unset;
+  padding: 0;
+}
+
+.hero-collection-container {
+  margin: 0;
+  padding: 0;
+}
+
+.hero-collection-container > div {
+  max-width: unset;
+  padding: 0;
+}
+
+.hero-collection {
+  position: relative;
+  height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+@media (width >= 900px) {
+  .hero-collection {
+    height: 60vh;
+  }
+}
+
+/* Background media container */
+.hero-collection > div:first-child {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-collection > div:first-child > div {
+  width: 100%;
+  height: 100%;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.hero-collection > div:first-child picture,
+.hero-collection > div:first-child img,
+.hero-collection > div:first-child video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Dark overlay */
+.hero-collection > div:first-child::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgb(0 0 0 / 35%);
+}
+
+/* Content — centered */
+/* stylelint-disable-next-line no-descending-specificity */
+.hero-collection > div:last-child {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-collection h1 {
+  font-size: 40px;
+  font-weight: 500;
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  color: var(--color-text-light);
+  margin: 0 0 8px;
+}
+
+@media (width >= 900px) {
+  .hero-collection h1 {
+    font-size: 64px;
+    letter-spacing: 12px;
+  }
+}
+
+.hero-collection p {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  color: var(--color-text-muted);
+  margin: 0;
+}
