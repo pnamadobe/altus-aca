@@ -108,6 +108,13 @@ export default function decorate(block) {
       body.append(swatchContainer);
     }
 
+    // Detect locked/mystery cards — no image in the image cell
+    const hasImage = imageWrap?.querySelector('picture, img');
+    if (!hasImage && imageWrap) {
+      li.classList.add('cards-product-locked');
+      imageWrap.textContent = '';
+    }
+
     ul.append(li);
   });
   ul.querySelectorAll('picture > img').forEach((imgEl) => {

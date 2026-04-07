@@ -155,3 +155,62 @@
 .cards-product .cards-product-swatch.active {
   box-shadow: rgb(255 255 255) 0 0 0 2px, rgb(10 10 10) 0 0 0 3px;
 }
+
+/* === Dark section: horizontal scroll carousel (Origin page) === */
+
+.section.dark .cards-product > ul {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  gap: 20px;
+  padding-bottom: 8px;
+}
+
+/* Hide scrollbar but keep functionality */
+.section.dark .cards-product > ul::-webkit-scrollbar {
+  display: none;
+}
+
+.section.dark .cards-product > ul > li {
+  flex: 0 0 calc(25% - 15px);
+  scroll-snap-align: start;
+}
+
+/* Dark section text colors */
+.section.dark .cards-product .cards-product-card-body > p:first-child {
+  color: var(--color-text-light);
+}
+
+.section.dark .cards-product .cards-product-card-body > p:nth-child(2) {
+  color: rgb(245 245 243 / 50%);
+}
+
+/* Locked/mystery card styling */
+.cards-product > ul > li.cards-product-locked .cards-product-card-image {
+  background-color: rgb(35 35 37);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cards-product > ul > li.cards-product-locked .cards-product-card-image::before {
+  content: "";
+  display: block;
+  width: 32px;
+  height: 40px;
+  background: rgb(245 245 243 / 15%);
+  mask: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='2' y='12' width='20' height='16' rx='2' fill='currentColor'/%3E%3Cpath d='M7 12V8a5 5 0 0 1 10 0v4' stroke='currentColor' stroke-width='2' fill='none'/%3E%3C/svg%3E") center / contain no-repeat;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='2' y='12' width='20' height='16' rx='2' fill='currentColor'/%3E%3Cpath d='M7 12V8a5 5 0 0 1 10 0v4' stroke='currentColor' stroke-width='2' fill='none'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.cards-product > ul > li.cards-product-locked .cards-product-card-body > p:first-child {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 11px;
+  color: rgb(245 245 243 / 30%);
+}
+
+.cards-product > ul > li.cards-product-locked .cards-product-card-body > p:nth-child(2) {
+  color: rgb(245 245 243 / 20%);
+}
