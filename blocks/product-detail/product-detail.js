@@ -2,7 +2,7 @@
 
 function getProductId() {
   const params = new URLSearchParams(window.location.search);
-  return params.get('id');
+  return params.get('id') || 'summit-shell';
 }
 
 function buildGallery(product, document) {
