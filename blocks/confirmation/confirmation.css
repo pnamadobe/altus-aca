@@ -1,0 +1,146 @@
+/* Confirmation page */
+
+.confirmation-container {
+  padding-top: var(--nav-height);
+}
+
+.confirmation-container > div {
+  max-width: unset;
+  padding: 0;
+}
+
+/* Force solid nav */
+body:has(.confirmation) .nav-wrapper {
+  background-color: var(--color-bg) !important;
+  border-bottom: 1px solid rgb(0 0 0 / 8%);
+}
+
+body:has(.confirmation) .nav-wrapper nav {
+  color: var(--color-text) !important;
+}
+
+.confirmation-content {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 80px 24px;
+  text-align: center;
+}
+
+@media (width >= 900px) {
+  .confirmation-content {
+    padding: 120px 48px;
+  }
+}
+
+.confirmation-check {
+  width: 48px;
+  height: 48px;
+  color: var(--color-accent-ember);
+  margin-bottom: 24px;
+}
+
+.confirmation-content h1 {
+  font-size: 36px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin: 0 0 12px;
+}
+
+@media (width >= 900px) {
+  .confirmation-content h1 {
+    font-size: 48px;
+  }
+}
+
+.confirmation-order-num {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--color-accent-slate);
+  margin: 0 0 16px;
+}
+
+.confirmation-message {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-accent-slate);
+  margin: 0 0 48px;
+}
+
+/* Items ordered */
+.confirmation-items {
+  text-align: left;
+  border-top: 1px solid rgb(0 0 0 / 10%);
+  padding-top: 24px;
+  margin-bottom: 40px;
+}
+
+.confirmation-items h3 {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 0 0 20px;
+}
+
+.confirmation-item {
+  display: grid;
+  grid-template-columns: 64px 1fr auto;
+  gap: 16px;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid rgb(0 0 0 / 6%);
+}
+
+.confirmation-item img {
+  width: 64px;
+  height: 80px;
+  object-fit: contain;
+  background: #ebeae7;
+}
+
+.confirmation-item-name {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.confirmation-item-variant {
+  font-size: 12px;
+  color: var(--color-accent-slate);
+}
+
+.confirmation-item-price {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.confirmation-total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 16px 0 0;
+  margin-top: 8px;
+  border-top: 1px solid rgb(0 0 0 / 10%);
+}
+
+/* CTA */
+.confirmation-cta {
+  display: inline-block;
+  padding: 14px 28px;
+  background-color: var(--color-bg-dark);
+  color: var(--color-text-light);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1.98px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.confirmation-cta:hover {
+  opacity: 0.85;
+}

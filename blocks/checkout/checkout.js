@@ -148,11 +148,16 @@ export default async function decorate(block) {
   placeOrder.className = 'checkout-place-order';
   placeOrder.textContent = 'Place Order';
   placeOrder.addEventListener('click', () => {
-    // eslint-disable-next-line no-alert
-    alert('Thank you for your order! This is a demo — no payment was processed.');
+    // Save order for confirmation page, then clear cart
+    const orderNumber = `ALT-${String(Math.floor(Math.random() * 900000) + 100000)}`;
+    sessionStorage.setItem('altus-order', JSON.stringify({
+      items: cart,
+      total,
+      orderNumber,
+    }));
     sessionStorage.removeItem('altus-cart');
     if (window.AltusCart) window.AltusCart.updateBagCounter();
-    window.location.href = '/';
+    window.location.href = '/confirmation';
   });
   summaryCol.append(placeOrder);
 
