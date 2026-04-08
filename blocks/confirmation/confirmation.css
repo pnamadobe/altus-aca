@@ -9,6 +9,14 @@
   padding: 0;
 }
 
+.confirmation {
+  background: transparent;
+}
+
+.confirmation > div {
+  background: transparent;
+}
+
 /* Force solid nav */
 body:has(.confirmation) .nav-wrapper {
   background-color: var(--color-bg) !important;
