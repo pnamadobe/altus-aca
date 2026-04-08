@@ -96,6 +96,8 @@ export default async function decorate(block) {
 
   block.append(wrapper);
 
-  // Clear order data
+  // Clear order data and cart
   sessionStorage.removeItem('altus-order');
+  sessionStorage.removeItem('altus-cart');
+  if (window.AltusCart) window.AltusCart.updateBagCounter();
 }
