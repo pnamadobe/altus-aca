@@ -73,22 +73,25 @@ footer .footer > div > div:first-child h2 {
   line-height: 1;
 }
 
-/* Column link containers — strip all p/button-container spacing */
-footer .footer > div > div:first-child p {
+/* Column link lists */
+footer .footer > div > div:first-child ul {
+  list-style: none;
   margin: 0;
+  padding: 0;
 }
 
-/* Column links */
-footer .footer > div > div:first-child a:any-link {
+footer .footer > div > div:first-child li {
+  margin-bottom: 12px;
+}
+
+footer .footer > div > div:first-child li a:any-link {
   font-size: 13px;
   color: rgb(245 245 243 / 70%);
   text-decoration: none;
-  display: block;
-  margin-bottom: 12px;
   transition: color 0.2s ease;
 }
 
-footer .footer > div > div:first-child a:hover {
+footer .footer > div > div:first-child li a:hover {
   color: var(--color-text-light);
   opacity: 1;
 }
@@ -144,6 +147,7 @@ footer .footer > div > div:last-child > div:last-child > div {
   gap: 0 24px;
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 footer .footer > div > div:last-child > div:last-child > div > p {
   margin: 0;
 }
