@@ -135,8 +135,8 @@ body:has(.confirmation) .nav-wrapper nav {
   border-top: 1px solid rgb(0 0 0 / 10%);
 }
 
-/* CTA */
-.confirmation-cta {
+/* CTA — needs high specificity to override a.button */
+.confirmation a.confirmation-cta:any-link {
   display: inline-block;
   padding: 14px 28px;
   background-color: var(--color-bg-dark);
@@ -146,9 +146,13 @@ body:has(.confirmation) .nav-wrapper nav {
   letter-spacing: 1.98px;
   text-transform: uppercase;
   text-decoration: none;
+  border: none;
+  border-radius: 0;
   transition: opacity 0.2s ease;
 }
 
-.confirmation-cta:hover {
+.confirmation a.confirmation-cta:hover {
+  background-color: var(--color-bg-dark);
+  color: var(--color-text-light);
   opacity: 0.85;
 }
