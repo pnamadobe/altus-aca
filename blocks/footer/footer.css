@@ -73,6 +73,11 @@ footer .footer > div > div:first-child h2 {
   line-height: 1;
 }
 
+/* Column link containers — strip all p/button-container spacing */
+footer .footer > div > div:first-child p {
+  margin: 0;
+}
+
 /* Column links */
 footer .footer > div > div:first-child a:any-link {
   font-size: 13px;
@@ -137,6 +142,10 @@ footer .footer > div > div:last-child > div:last-child > div {
   flex-flow: row wrap;
   align-items: center;
   gap: 0 24px;
+}
+
+footer .footer > div > div:last-child > div:last-child > div > p {
+  margin: 0;
 }
 
 footer .footer > div > div:last-child > div:last-child a:any-link {
