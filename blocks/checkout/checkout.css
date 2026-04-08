@@ -101,6 +101,7 @@ body:has(.checkout) .nav-wrapper nav {
   align-self: start;
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 .checkout-summary h2 {
   font-size: 16px;
   font-weight: 500;
