@@ -16,11 +16,6 @@ function isVideoUrl(href) {
   return /\.(mp4|webm|mov|m4v|ogv)$/i.test(getPathname(href));
 }
 
-/** True if the URL points to an image, ignoring any query string. */
-function isImageUrl(href) {
-  return /\.(avif|jpe?g|png|webp|gif|svg)$/i.test(getPathname(href));
-}
-
 export default function decorate(block) {
   const firstRow = block.querySelector(':scope > div:first-child');
   if (!firstRow) return;
@@ -55,10 +50,13 @@ export default function decorate(block) {
     wrapper.textContent = '';
     wrapper.append(video);
   } else if (!firstRow.querySelector('picture')) {
-    // EDS doesn't auto-convert absolute/external image URLs (e.g. an AEM
-    // Dynamic Media delivery URL) into a <picture>; it leaves them as plain
-    // anchors. Detect such an image link and render it as an <img>.
-    const imageLink = [...firstRow.querySelectorAll('a')].find((a) => isImageUrl(a.href));
+    // The first row holds the background media. EDS only auto-converts
+    // pipeline images into <picture>; external media URLs stay as plain
+    // anchors — AEM Dynamic Media delivery URLs (with a ?preset query),
+    // Scene7 `/is/image/...` URLs (no file extension), or plain CDN links.
+    // Since this row is the media cell, treat any non-video link as the image.
+    const imageLink = [...firstRow.querySelectorAll('a')]
+      .find((a) => /^https?:/i.test(a.href) && !isVideoUrl(a.href));
     if (imageLink) {
       const img = document.createElement('img');
       img.src = imageLink.href;
