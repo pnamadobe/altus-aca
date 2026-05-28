@@ -16,6 +16,17 @@ function isVideoUrl(href) {
   return /\.(mp4|webm|mov|m4v|ogv)$/i.test(getPathname(href));
 }
 
+/**
+ * Finds the background-image link in a media row. The media cell only holds
+ * media, so any non-video http(s) link is treated as the image — covers AEM
+ * Dynamic Media delivery URLs, Scene7 `/is/image/...` URLs (no extension)
+ * and plain CDN links.
+ */
+function findImageLink(row) {
+  return [...row.querySelectorAll('a')]
+    .find((a) => /^https?:/i.test(a.href) && !isVideoUrl(a.href));
+}
+
 export default function decorate(block) {
   const firstRow = block.querySelector(':scope > div:first-child');
   if (!firstRow) return;
@@ -38,11 +49,16 @@ export default function decorate(block) {
     source.type = isWebm ? 'video/webm' : 'video/mp4';
     video.append(source);
 
-    // Use existing picture as poster fallback
-    const pic = firstRow.querySelector('picture');
-    const posterImg = pic ? pic.querySelector('img') : null;
+    // Poster / fallback image: paints instantly and stays visible until the
+    // video plays — and remains if autoplay is blocked or the video fails.
+    // Accept an EDS <picture> or an external image link (Scene7 / DM delivery)
+    // authored in the same media cell as the video.
+    const posterImg = firstRow.querySelector('picture img');
+    const posterLink = findImageLink(firstRow);
     if (posterImg) {
       video.poster = posterImg.src;
+    } else if (posterLink) {
+      video.poster = posterLink.href;
     }
 
     // Replace content of first row with the video
@@ -50,13 +66,9 @@ export default function decorate(block) {
     wrapper.textContent = '';
     wrapper.append(video);
   } else if (!firstRow.querySelector('picture')) {
-    // The first row holds the background media. EDS only auto-converts
-    // pipeline images into <picture>; external media URLs stay as plain
-    // anchors — AEM Dynamic Media delivery URLs (with a ?preset query),
-    // Scene7 `/is/image/...` URLs (no file extension), or plain CDN links.
-    // Since this row is the media cell, treat any non-video link as the image.
-    const imageLink = [...firstRow.querySelectorAll('a')]
-      .find((a) => /^https?:/i.test(a.href) && !isVideoUrl(a.href));
+    // No video: render the external image link as the background <img>.
+    // (EDS leaves external image URLs as plain anchors instead of <picture>.)
+    const imageLink = findImageLink(firstRow);
     if (imageLink) {
       const img = document.createElement('img');
       img.src = imageLink.href;
