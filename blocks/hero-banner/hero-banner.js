@@ -1,23 +1,34 @@
 /**
- * Returns true if the URL points to an image, ignoring any query string.
- * Handles AEM Dynamic Media delivery URLs such as
+ * Returns the pathname of a URL, ignoring any query string, or '' if invalid.
+ * Lets us match file extensions on AEM Dynamic Media delivery URLs such as
  * `.../iconoftheseas-wide.avif?preset=Responsive`.
  */
-function isImageUrl(href) {
+function getPathname(href) {
   try {
-    const { pathname } = new URL(href, window.location.href);
-    return /\.(avif|jpe?g|png|webp|gif|svg)$/i.test(pathname);
+    return new URL(href, window.location.href).pathname;
   } catch {
-    return false;
+    return '';
   }
+}
+
+/** True if the URL points to a video, ignoring any query string. */
+function isVideoUrl(href) {
+  return /\.(mp4|webm|mov|m4v|ogv)$/i.test(getPathname(href));
+}
+
+/** True if the URL points to an image, ignoring any query string. */
+function isImageUrl(href) {
+  return /\.(avif|jpe?g|png|webp|gif|svg)$/i.test(getPathname(href));
 }
 
 export default function decorate(block) {
   const firstRow = block.querySelector(':scope > div:first-child');
   if (!firstRow) return;
 
-  // Check for a video link in the first row
-  const videoLink = firstRow.querySelector('a[href$=".mp4"], a[href$=".webm"]');
+  // Check for a video link in the first row. Match on the URL pathname so
+  // Dynamic Media delivery URLs with a query string (e.g. `.../clip.mp4?...`)
+  // are still recognised.
+  const videoLink = [...firstRow.querySelectorAll('a')].find((a) => isVideoUrl(a.href));
   if (videoLink) {
     const video = document.createElement('video');
     video.setAttribute('muted', '');
@@ -28,7 +39,8 @@ export default function decorate(block) {
 
     const source = document.createElement('source');
     source.src = videoLink.href;
-    source.type = videoLink.href.endsWith('.webm') ? 'video/webm' : 'video/mp4';
+    const isWebm = getPathname(videoLink.href).toLowerCase().endsWith('.webm');
+    source.type = isWebm ? 'video/webm' : 'video/mp4';
     video.append(source);
 
     // Use existing picture as poster fallback
