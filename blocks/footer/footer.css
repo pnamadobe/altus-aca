@@ -48,8 +48,8 @@ footer .footer .button-container {
   text-align: left;
 }
 
-/* Link grid — first section with 4 columns */
-footer .footer > div > div:first-child {
+/* Link grid — 4 columns */
+footer .footer-columns {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 40px;
@@ -57,13 +57,13 @@ footer .footer > div > div:first-child {
 }
 
 @media (width >= 900px) {
-  footer .footer > div > div:first-child {
+  footer .footer-columns {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 
 /* Column headings */
-footer .footer > div > div:first-child h2 {
+footer .footer-column h2 {
   font-size: 10px;
   font-weight: 500;
   letter-spacing: 2px;
@@ -74,30 +74,30 @@ footer .footer > div > div:first-child h2 {
 }
 
 /* Column link lists */
-footer .footer > div > div:first-child ul {
+footer .footer-column ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-footer .footer > div > div:first-child li {
+footer .footer-column li {
   margin-bottom: 12px;
 }
 
-footer .footer > div > div:first-child li a:any-link {
+footer .footer-column li a:any-link {
   font-size: 13px;
   color: rgb(245 245 243 / 70%);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
-footer .footer > div > div:first-child li a:hover {
+footer .footer-column li a:hover {
   color: var(--color-text-light);
   opacity: 1;
 }
 
 /* Bottom bar — wordmark left, legal links right */
-footer .footer > div > div:last-child {
+footer .footer-bottom {
   border-top: 1px solid rgb(245 245 243 / 10%);
   padding-top: 24px;
   display: flex;
@@ -106,7 +106,7 @@ footer .footer > div > div:last-child {
 }
 
 @media (width >= 900px) {
-  footer .footer > div > div:last-child {
+  footer .footer-bottom {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
@@ -114,11 +114,11 @@ footer .footer > div > div:last-child {
 }
 
 /* Wordmark side */
-footer .footer > div > div:last-child > div:first-child {
+footer .footer-brand {
   flex: 0 0 auto;
 }
 
-footer .footer > div > div:last-child strong {
+footer .footer-brand strong {
   font-size: 16px;
   font-weight: 500;
   letter-spacing: 4.48px;
@@ -126,7 +126,7 @@ footer .footer > div > div:last-child strong {
   color: var(--color-text-light);
 }
 
-footer .footer > div > div:last-child > div:first-child > div > p:last-child {
+footer .footer-brand p:last-child {
   font-size: 11px;
   letter-spacing: 1.1px;
   color: rgb(245 245 243 / 30%);
@@ -134,32 +134,24 @@ footer .footer > div > div:last-child > div:first-child > div > p:last-child {
 }
 
 /* Legal links side — horizontal row, right-aligned */
-footer .footer > div > div:last-child > div:last-child {
+footer .footer-legal {
   flex: 0 0 auto;
-  font-size: 11px;
-  color: rgb(245 245 243 / 30%);
-}
-
-footer .footer > div > div:last-child > div:last-child > div {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
   gap: 0 24px;
+  font-size: 11px;
+  color: rgb(245 245 243 / 30%);
 }
 
-/* stylelint-disable-next-line no-descending-specificity */
-footer .footer > div > div:last-child > div:last-child > div > p {
-  margin: 0;
-}
-
-footer .footer > div > div:last-child > div:last-child a:any-link {
+footer .footer-legal a:any-link {
   font-size: 11px;
   color: rgb(245 245 243 / 30%);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
-footer .footer > div > div:last-child > div:last-child a:hover {
+footer .footer-legal a:hover {
   color: rgb(245 245 243 / 60%);
   opacity: 1;
 }
