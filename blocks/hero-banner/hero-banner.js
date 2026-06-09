@@ -94,8 +94,9 @@ async function playHls(video, hlsUrl) {
   try {
     const Hls = await loadHlsLib();
     if (Hls && Hls.isSupported()) {
-      // startLevel:0 + capLevelToPlayerSize → fastest first frame, quality ramps after.
-      const hls = new Hls({ startLevel: 0, capLevelToPlayerSize: true });
+      // startLevel:0 → fast first frame; ABR then climbs to the best rendition
+      // the connection allows (no player-size cap, so 1080p is reachable).
+      const hls = new Hls({ startLevel: 0 });
       hls.loadSource(hlsUrl);
       hls.attachMedia(video);
       hls.on(Hls.Events.MANIFEST_PARSED, () => { video.play().catch(() => {}); });
