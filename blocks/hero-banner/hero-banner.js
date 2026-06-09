@@ -51,6 +51,21 @@ function toHlsManifest(href) {
   }
 }
 
+/** Warms the connection to an asset origin so the manifest/segments load sooner. */
+function preconnect(href) {
+  try {
+    const { origin } = new URL(href, window.location.href);
+    if (document.head.querySelector(`link[rel="preconnect"][href="${origin}"]`)) return;
+    const link = document.createElement('link');
+    link.rel = 'preconnect';
+    link.href = origin;
+    link.crossOrigin = 'anonymous';
+    document.head.append(link);
+  } catch {
+    // ignore invalid URLs
+  }
+}
+
 // Lazily loads the vendored hls.js once, resolving to the global Hls constructor.
 let hlsLibPromise;
 function loadHlsLib() {
@@ -79,7 +94,8 @@ async function playHls(video, hlsUrl) {
   try {
     const Hls = await loadHlsLib();
     if (Hls && Hls.isSupported()) {
-      const hls = new Hls();
+      // startLevel:0 + capLevelToPlayerSize → fastest first frame, quality ramps after.
+      const hls = new Hls({ startLevel: 0, capLevelToPlayerSize: true });
       hls.loadSource(hlsUrl);
       hls.attachMedia(video);
       hls.on(Hls.Events.MANIFEST_PARSED, () => { video.play().catch(() => {}); });
@@ -108,6 +124,7 @@ export default function decorate(block) {
 
     if (isAdaptiveVideoUrl(videoLink.href)) {
       // DM video delivery only offers adaptive streaming, so play the HLS manifest.
+      preconnect(videoLink.href);
       playHls(video, toHlsManifest(videoLink.href));
     } else {
       const source = document.createElement('source');
