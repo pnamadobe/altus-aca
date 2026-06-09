@@ -94,9 +94,11 @@ async function playHls(video, hlsUrl) {
   try {
     const Hls = await loadHlsLib();
     if (Hls && Hls.isSupported()) {
-      // startLevel:0 → fast first frame; ABR then climbs to the best rendition
-      // the connection allows (no player-size cap, so 1080p is reachable).
-      const hls = new Hls({ startLevel: 0 });
+      // Assume a fast connection at startup so playback — and therefore every
+      // loop — opens at a high rendition. ABR still drops if bandwidth is
+      // actually lower. (startLevel:0 made short clips replay a cached low-res
+      // opening on every loop, since fully-buffered ranges aren't re-fetched.)
+      const hls = new Hls({ abrEwmaDefaultEstimate: 5000000 });
       hls.loadSource(hlsUrl);
       hls.attachMedia(video);
       hls.on(Hls.Events.MANIFEST_PARSED, () => { video.play().catch(() => {}); });
