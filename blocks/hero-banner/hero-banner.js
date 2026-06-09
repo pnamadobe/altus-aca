@@ -51,14 +51,19 @@ function toHlsManifest(href) {
   }
 }
 
-/** Derives a poster-frame image URL from a DM video URL, so the hero paints instantly. */
+/**
+ * Derives a poster-frame image URL from a DM video URL, so the hero paints
+ * instantly. DM only renders video posters as PNG (webp/avif aren't supported
+ * here), but `width` is honoured, so constrain it to keep the file light — the
+ * poster only flashes before the HD video covers it.
+ */
 function toDmPoster(href) {
   try {
     const url = new URL(href, window.location.href);
     const base = url.pathname.replace(/\/(play|manifest\.m3u8|manifest\.mpd)$/i, '');
     if (base === url.pathname) return '';
     url.pathname = `${base}/as/poster.jpg`;
-    url.search = '';
+    url.search = 'width=960';
     return url.href;
   } catch {
     return '';
