@@ -1,7 +1,5 @@
 /**
  * Returns the pathname of a URL, ignoring any query string, or '' if invalid.
- * Lets us match file extensions on AEM Dynamic Media delivery URLs such as
- * `.../iconoftheseas-wide.avif?preset=Responsive`.
  */
 function getPathname(href) {
   try {
@@ -11,9 +9,17 @@ function getPathname(href) {
   }
 }
 
-/** True if the URL points to a video, ignoring any query string. */
+/**
+ * True for an AEM Dynamic Media adaptive video: the `/play` HTML player URL or
+ * an HLS/DASH manifest. These are streams (no direct file) and need HLS playback.
+ */
+function isAdaptiveVideoUrl(href) {
+  return /\/play$|\/manifest\.m3u8$|\/manifest\.mpd$/i.test(getPathname(href));
+}
+
+/** True if the URL points to a video — a progressive file or a DM adaptive stream. */
 function isVideoUrl(href) {
-  return /\.(mp4|webm|mov|m4v|ogv)$/i.test(getPathname(href));
+  return /\.(mp4|webm|mov|m4v|ogv)$/i.test(getPathname(href)) || isAdaptiveVideoUrl(href);
 }
 
 /**
@@ -27,13 +33,70 @@ function findImageLink(row) {
     .find((a) => /^https?:/i.test(a.href) && !isVideoUrl(a.href));
 }
 
+/**
+ * Derives the HLS manifest URL from a DM `/play` (or `.mpd`) URL, preserving
+ * any query string (e.g. delivery token).
+ */
+function toHlsManifest(href) {
+  try {
+    const url = new URL(href, window.location.href);
+    if (/\/play$/i.test(url.pathname)) {
+      url.pathname = url.pathname.replace(/\/play$/i, '/manifest.m3u8');
+    } else if (/\/manifest\.mpd$/i.test(url.pathname)) {
+      url.pathname = url.pathname.replace(/\/manifest\.mpd$/i, '/manifest.m3u8');
+    }
+    return url.href;
+  } catch {
+    return href;
+  }
+}
+
+// Lazily loads the vendored hls.js once, resolving to the global Hls constructor.
+let hlsLibPromise;
+function loadHlsLib() {
+  if (window.Hls) return Promise.resolve(window.Hls);
+  if (!hlsLibPromise) {
+    hlsLibPromise = new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = `${window.hlx.codeBasePath}/blocks/hero-banner/hls.min.js`;
+      script.onload = () => resolve(window.Hls);
+      script.onerror = reject;
+      document.head.append(script);
+    });
+  }
+  return hlsLibPromise;
+}
+
+/**
+ * Plays an HLS stream in the given <video>: native HLS where supported
+ * (Safari/iOS), otherwise via hls.js. Falls back to setting src directly.
+ */
+async function playHls(video, hlsUrl) {
+  if (video.canPlayType('application/vnd.apple.mpegurl')) {
+    video.src = hlsUrl;
+    return;
+  }
+  try {
+    const Hls = await loadHlsLib();
+    if (Hls && Hls.isSupported()) {
+      const hls = new Hls();
+      hls.loadSource(hlsUrl);
+      hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED, () => { video.play().catch(() => {}); });
+    } else {
+      video.src = hlsUrl;
+    }
+  } catch {
+    video.src = hlsUrl;
+  }
+}
+
 export default function decorate(block) {
   const firstRow = block.querySelector(':scope > div:first-child');
   if (!firstRow) return;
 
-  // Check for a video link in the first row. Match on the URL pathname so
-  // Dynamic Media delivery URLs with a query string (e.g. `.../clip.mp4?...`)
-  // are still recognised.
+  // Match on the URL pathname so Dynamic Media URLs (query strings, `/play`
+  // streams) are recognised, not just plain `.mp4` links.
   const videoLink = [...firstRow.querySelectorAll('a')].find((a) => isVideoUrl(a.href));
   if (videoLink) {
     const video = document.createElement('video');
@@ -43,16 +106,20 @@ export default function decorate(block) {
     video.setAttribute('playsinline', '');
     video.muted = true;
 
-    const source = document.createElement('source');
-    source.src = videoLink.href;
-    const isWebm = getPathname(videoLink.href).toLowerCase().endsWith('.webm');
-    source.type = isWebm ? 'video/webm' : 'video/mp4';
-    video.append(source);
+    if (isAdaptiveVideoUrl(videoLink.href)) {
+      // DM video delivery only offers adaptive streaming, so play the HLS manifest.
+      playHls(video, toHlsManifest(videoLink.href));
+    } else {
+      const source = document.createElement('source');
+      source.src = videoLink.href;
+      const isWebm = getPathname(videoLink.href).toLowerCase().endsWith('.webm');
+      source.type = isWebm ? 'video/webm' : 'video/mp4';
+      video.append(source);
+    }
 
     // Poster / fallback image: paints instantly and stays visible until the
     // video plays — and remains if autoplay is blocked or the video fails.
-    // Accept an EDS <picture> or an external image link (Scene7 / DM delivery)
-    // authored in the same media cell as the video.
+    // Accept an EDS <picture> or an external image link authored in the same cell.
     const posterImg = firstRow.querySelector('picture img');
     const posterLink = findImageLink(firstRow);
     if (posterImg) {
