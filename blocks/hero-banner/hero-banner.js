@@ -51,6 +51,20 @@ function toHlsManifest(href) {
   }
 }
 
+/** Derives a poster-frame image URL from a DM video URL, so the hero paints instantly. */
+function toDmPoster(href) {
+  try {
+    const url = new URL(href, window.location.href);
+    const base = url.pathname.replace(/\/(play|manifest\.m3u8|manifest\.mpd)$/i, '');
+    if (base === url.pathname) return '';
+    url.pathname = `${base}/as/poster.jpg`;
+    url.search = '';
+    return url.href;
+  } catch {
+    return '';
+  }
+}
+
 /** Warms the connection to an asset origin so the manifest/segments load sooner. */
 function preconnect(href) {
   try {
@@ -94,14 +108,15 @@ async function playHls(video, hlsUrl) {
   try {
     const Hls = await loadHlsLib();
     if (Hls && Hls.isSupported()) {
-      // Assume a fast connection at startup so playback — and therefore every
-      // loop — opens at a high rendition. ABR still drops if bandwidth is
-      // actually lower. (startLevel:0 made short clips replay a cached low-res
-      // opening on every loop, since fully-buffered ranges aren't re-fetched.)
-      const hls = new Hls({ abrEwmaDefaultEstimate: 5000000 });
+      const hls = new Hls();
       hls.loadSource(hlsUrl);
       hls.attachMedia(video);
-      hls.on(Hls.Events.MANIFEST_PARSED, () => { video.play().catch(() => {}); });
+      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        // Pin to the highest rendition (ABR off). The poster masks the heavier
+        // startup, and the fully-buffered clip then loops in full quality.
+        hls.currentLevel = hls.levels.length - 1;
+        video.play().catch(() => {});
+      });
     } else {
       video.src = hlsUrl;
     }
@@ -146,6 +161,9 @@ export default function decorate(block) {
       video.poster = posterImg.src;
     } else if (posterLink) {
       video.poster = posterLink.href;
+    } else if (isAdaptiveVideoUrl(videoLink.href)) {
+      const poster = toDmPoster(videoLink.href);
+      if (poster) video.poster = poster;
     }
 
     // Replace content of first row with the video
