@@ -24,6 +24,13 @@
   overflow: hidden;
 }
 
+/* In an editor iframe (Universal Editor / DA), the canvas auto-sizes to its
+   content, so a 100vh hero feeds back and grows without bound. Cap it there;
+   the live page (not iframed) keeps the full-viewport hero above. */
+.hero-banner.hero-banner-editor {
+  max-height: 600px;
+}
+
 @media (width >= 900px) {
   .hero-banner {
     padding: 80px 48px;

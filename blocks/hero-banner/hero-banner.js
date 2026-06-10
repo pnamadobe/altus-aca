@@ -131,6 +131,11 @@ async function playHls(video, hlsUrl) {
 }
 
 export default function decorate(block) {
+  // In an editor iframe (Universal Editor / DA), the 100vh hero feeds back
+  // against the auto-sized canvas and grows unbounded. Flag it so CSS can cap
+  // the height there; the live (top-level) page keeps its full-viewport hero.
+  if (window.self !== window.top) block.classList.add('hero-banner-editor');
+
   const firstRow = block.querySelector(':scope > div:first-child');
   if (!firstRow) return;
 
