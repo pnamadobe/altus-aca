@@ -266,6 +266,19 @@ function createOptimizedPicture(
   const url = !src.startsWith('http') ? new URL(src, window.location.href) : new URL(src);
   const picture = document.createElement('picture');
   const { origin, pathname } = url;
+
+  // External assets (e.g. AEM Dynamic Media / Scene7) can't be served through
+  // the EDS media pipeline — return them untouched so their delivery params
+  // (presets, query string) survive instead of being rewritten.
+  if (origin !== window.location.origin) {
+    const img = document.createElement('img');
+    img.setAttribute('loading', eager ? 'eager' : 'lazy');
+    img.setAttribute('alt', alt);
+    img.src = src;
+    picture.append(img);
+    return picture;
+  }
+
   const ext = pathname.split('.').pop();
 
   // webp

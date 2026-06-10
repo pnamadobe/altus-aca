@@ -141,6 +141,42 @@ function decorateSections(main) {
 }
 
 /**
+ * Renders autolinked external image URLs (e.g. AEM Dynamic Media delivery or
+ * Scene7 URLs) as <picture><img>, so every block — and default content —
+ * shows them as images. EDS only auto-converts its own pipeline images;
+ * absolute external URLs are otherwise left as plain anchors. Only bare
+ * autolinked URLs (link text === href) are converted, so deliberate links with
+ * custom text are preserved. Video URLs (handled by blocks) are skipped.
+ * @param {Element} main The container element
+ */
+function decorateExternalImages(main) {
+  main.querySelectorAll('a[href]').forEach((a) => {
+    const href = a.getAttribute('href');
+    if (!/^https?:/i.test(href) || a.textContent.trim() !== href) return;
+    let url;
+    try {
+      url = new URL(a.href);
+    } catch {
+      return;
+    }
+    const { hostname, pathname } = url;
+    if (/\.(mp4|webm|mov|m4v|ogv)$/i.test(pathname)) return;
+    if (/\/play$|\/manifest\.(m3u8|mpd)$/i.test(pathname)) return;
+    const isImage = /\.(avif|jpe?g|png|webp|gif|svg)$/i.test(pathname)
+      || /(^|\.)adobeaemcloud\.com$/i.test(hostname)
+      || /(^|\.)scene7\.com$/i.test(hostname);
+    if (!isImage) return;
+    const picture = document.createElement('picture');
+    const img = document.createElement('img');
+    img.src = a.href;
+    img.loading = 'lazy';
+    img.alt = '';
+    picture.append(img);
+    a.replaceWith(picture);
+  });
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -148,6 +184,7 @@ function decorateSections(main) {
 export function decorateMain(main) {
   // hopefully forward compatible button decoration
   decorateButtons(main);
+  decorateExternalImages(main);
   decorateIcons(main);
   decorateDropDates(main);
   buildAutoBlocks(main);
