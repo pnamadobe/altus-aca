@@ -1,12 +1,17 @@
 .video {
   text-align: center;
+  width: 100%;
   max-width: 900px;
   margin: 24px auto;
 }
 
 .video[data-embed-loaded='false']:not(.placeholder) {
-  /* reserve an approximate space to avoid extensive layout shifts */
+  /* reserve approximate space to avoid layout shift; width:100% gives the
+     aspect-ratio a definite basis and max-height caps it so the box can't run
+     away in the Universal Editor canvas (where it can lack a definite width) */
   aspect-ratio: 16 / 9;
+  width: 100%;
+  max-height: 80vh;
 }
 
 .video > div {
@@ -15,7 +20,9 @@
 }
 
 .video video {
+  display: block;
   max-width: 100%;
+  height: auto;
 }
 
 .video .video-placeholder {
