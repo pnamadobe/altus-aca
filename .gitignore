@@ -7,3 +7,6 @@ helix-importer-ui
 .DS_Store
 *.bak
 .idea
+
+# Local working notes, not for the repo
+UE-EDITABILITY-HANDOFF.md
