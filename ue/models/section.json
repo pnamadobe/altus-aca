@@ -36,7 +36,11 @@
       "components": [
         "accordion",
         "cards",
+        "cards-collection",
+        "cards-product",
+        "cards-immersive",
         "carousel",
+        "hero-banner",
         "columns",
         "embed",
         "fragment",

@@ -13,16 +13,29 @@
 import { showSlide } from '../../blocks/carousel/carousel.js';
 import { moveInstrumentation } from './ue-utils.js';
 
+// Container blocks that rebuild their children into ul/li on decorate, wiping
+// UE instrumentation. The cards-* family all share the cards rebuild pattern.
+const CARDS_FAMILY = ['cards', 'cards-collection', 'cards-product', 'cards-immersive'];
+
 const setupObservers = () => {
-  const mutatingBlocks = document.querySelectorAll('div.cards, div.carousel, div.accordion');
+  const mutatingBlocks = document.querySelectorAll(
+    'div.cards, div.cards-collection, div.cards-product, div.cards-immersive, div.carousel, div.accordion',
+  );
   const observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
       if (mutation.type === 'childList' && mutation.target.tagName === 'DIV') {
         const addedElements = mutation.addedNodes;
         const removedElements = mutation.removedNodes;
 
-        // detect the mutation type of the block or picture (for cards)
-        const type = mutation.target.classList.contains('cards-card-image') ? 'cards-image' : mutation.target.attributes['data-aue-component']?.value;
+        // detect the mutation type of the block or picture (for cards). Image
+        // cells across the cards-* family share the `*-card-image` suffix, and
+        // every cards-* container rebuilds the same div→ul/li way.
+        const isImageCell = [...mutation.target.classList].some((c) => c.endsWith('-card-image'));
+        const component = mutation.target.attributes['data-aue-component']?.value;
+        let type;
+        if (isImageCell) type = 'cards-image';
+        else if (CARDS_FAMILY.includes(component)) type = 'cards';
+        else type = component;
 
         switch (type) {
           case 'cards':
@@ -39,7 +52,7 @@ const setupObservers = () => {
             break;
           case 'cards-image':
             // handle card-image picture replacements
-            if (mutation.target.classList.contains('cards-card-image')) {
+            if ([...mutation.target.classList].some((c) => c.endsWith('-card-image'))) {
               const addedPictureEl = [...mutation.addedNodes].filter((node) => node.tagName === 'PICTURE');
               const removedPictureEl = [...mutation.removedNodes].filter((node) => node.tagName === 'PICTURE');
               if (addedPictureEl.length === 1 && removedPictureEl.length === 1) {

@@ -1,0 +1,66 @@
+{
+  "definitions": [
+    {
+      "title": "Cards Collection",
+      "id": "cards-collection",
+      "model": "cards-collection",
+      "filter": "cards-collection",
+      "plugins": {
+        "da": {
+          "rows": 1,
+          "columns": 2
+        }
+      }
+    },
+    {
+      "title": "Cards Collection Card",
+      "id": "cards-collection-card",
+      "model": "cards-collection-card",
+      "plugins": {
+        "da": {
+          "rows": 1,
+          "columns": 2,
+          "fields": [
+            { "name": "image", "selector": "div:nth-child(1)>picture>img[src]" },
+            { "name": "imageAlt", "selector": "div:nth-child(1)>picture>img[alt]" },
+            { "name": "text", "selector": "div:nth-child(2)" }
+          ]
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "cards-collection-card",
+      "fields": [
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "image",
+          "label": "Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "imageAlt",
+          "label": "Image Alt Text",
+          "value": ""
+        },
+        {
+          "component": "richtext",
+          "name": "text",
+          "valueType": "string",
+          "value": "",
+          "label": "Content (eyebrow, title, description, CTA)"
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "cards-collection",
+      "components": ["cards-collection-card"]
+    }
+  ]
+}

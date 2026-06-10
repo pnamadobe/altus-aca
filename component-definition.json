@@ -95,6 +95,125 @@
           }
         },
         {
+          "title": "Cards Collection",
+          "id": "cards-collection",
+          "model": "cards-collection",
+          "filter": "cards-collection",
+          "plugins": {
+            "da": {
+              "rows": 1,
+              "columns": 2
+            }
+          }
+        },
+        {
+          "title": "Cards Collection Card",
+          "id": "cards-collection-card",
+          "model": "cards-collection-card",
+          "plugins": {
+            "da": {
+              "rows": 1,
+              "columns": 2,
+              "fields": [
+                {
+                  "name": "image",
+                  "selector": "div:nth-child(1)>picture>img[src]"
+                },
+                {
+                  "name": "imageAlt",
+                  "selector": "div:nth-child(1)>picture>img[alt]"
+                },
+                {
+                  "name": "text",
+                  "selector": "div:nth-child(2)"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "title": "Cards Immersive",
+          "id": "cards-immersive",
+          "model": "cards-immersive",
+          "filter": "cards-immersive",
+          "plugins": {
+            "da": {
+              "rows": 1,
+              "columns": 2
+            }
+          }
+        },
+        {
+          "title": "Cards Immersive Card",
+          "id": "cards-immersive-card",
+          "model": "cards-immersive-card",
+          "plugins": {
+            "da": {
+              "rows": 1,
+              "columns": 2,
+              "fields": [
+                {
+                  "name": "image",
+                  "selector": "div:nth-child(1)>picture>img[src]"
+                },
+                {
+                  "name": "imageAlt",
+                  "selector": "div:nth-child(1)>picture>img[alt]"
+                },
+                {
+                  "name": "video",
+                  "selector": "div:nth-child(1)>p>a[href]"
+                },
+                {
+                  "name": "videoText",
+                  "selector": "div:nth-child(1)>p>a"
+                },
+                {
+                  "name": "text",
+                  "selector": "div:nth-child(2)"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "title": "Cards Product",
+          "id": "cards-product",
+          "model": "cards-product",
+          "filter": "cards-product",
+          "plugins": {
+            "da": {
+              "rows": 1,
+              "columns": 2
+            }
+          }
+        },
+        {
+          "title": "Cards Product Card",
+          "id": "cards-product-card",
+          "model": "cards-product-card",
+          "plugins": {
+            "da": {
+              "rows": 1,
+              "columns": 2,
+              "fields": [
+                {
+                  "name": "image",
+                  "selector": "div:nth-child(1)>picture>img[src]"
+                },
+                {
+                  "name": "imageAlt",
+                  "selector": "div:nth-child(1)>picture>img[alt]"
+                },
+                {
+                  "name": "text",
+                  "selector": "div:nth-child(2)"
+                }
+              ]
+            }
+          }
+        },
+        {
           "title": "Cards",
           "id": "cards",
           "model": "cards",
@@ -221,6 +340,38 @@
                 {
                   "name": "urlText",
                   "selector": "div>div>p>a"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "title": "Hero Banner",
+          "id": "hero-banner",
+          "model": "hero-banner",
+          "plugins": {
+            "da": {
+              "unsafeHTML": "<div class=\"hero-banner\"><div><div><picture><source type=\"image/webp\" srcset=\"\"><source type=\"image/jpeg\" srcset=\"\"><img loading=\"eager\"></picture></div></div><div><div><p>Label</p><h1>Heading</h1><p>Short supporting paragraph.</p><p><a class=\"button\" href=\"#\">Call to action</a></p></div></div></div>",
+              "fields": [
+                {
+                  "name": "image",
+                  "selector": "div:first-child>div>picture>img[src]"
+                },
+                {
+                  "name": "imageAlt",
+                  "selector": "div:first-child>div>picture>img[alt]"
+                },
+                {
+                  "name": "video",
+                  "selector": "div:first-child>div>p>a[href]"
+                },
+                {
+                  "name": "videoText",
+                  "selector": "div:first-child>div>p>a"
+                },
+                {
+                  "name": "text",
+                  "selector": "div:last-child>div"
                 }
               ]
             }
