@@ -192,3 +192,47 @@
   display: inline-block;
   text-align: center;
 }
+
+/* === Editor (DA canvas) === */
+
+/* ProseMirror wraps each editable <p>, breaking the p:nth-child selectors above.
+   decorate() hooks the label / byline / body with stable divs in the editor;
+   these descendant selectors tolerate the injected ProseMirror wrappers.
+   Lower specificity than the positional rules above, hence the disable. */
+/* stylelint-disable no-descending-specificity */
+.columns-editorial .columns-editorial-label p {
+  font-size: var(--label-font-size);
+  font-weight: var(--label-font-weight);
+  letter-spacing: var(--label-letter-spacing);
+  text-transform: var(--label-text-transform);
+  color: var(--color-accent-dusk);
+  margin: 0 0 var(--gap-md);
+}
+
+.columns-editorial .columns-editorial-byline p {
+  font-size: var(--body-font-size-s);
+  font-style: italic;
+  color: var(--color-accent-slate);
+  margin: 0 0 var(--gap-md);
+}
+
+.columns-editorial .columns-editorial-body p {
+  font-size: var(--body-font-size-m);
+  line-height: 1.6;
+  color: var(--color-text);
+  margin: 0 0 var(--gap-lg);
+}
+
+.section.dark .columns-editorial .columns-editorial-label p {
+  color: var(--color-accent-ember);
+}
+
+.section.dark .columns-editorial .columns-editorial-byline p,
+.section.dark .columns-editorial .columns-editorial-body p {
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgb(245 245 243 / 50%);
+  font-style: normal;
+}
+
+/* stylelint-enable no-descending-specificity */

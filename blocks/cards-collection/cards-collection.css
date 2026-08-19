@@ -164,3 +164,27 @@
   color: var(--color-text-light);
   opacity: 1;
 }
+
+/* === Editor (DA canvas) === */
+
+/* ProseMirror wraps each editable <p>, breaking the positional tag/description
+   selectors above. decorate() hooks them with stable divs in the editor; these
+   descendant selectors tolerate the injected ProseMirror wrappers. */
+/* stylelint-disable no-descending-specificity */
+.cards-collection .cards-collection-card-tag p {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--color-accent-ember);
+  margin: 0 0 var(--gap-xs);
+}
+
+.cards-collection .cards-collection-card-desc p {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--color-text-subtle);
+  margin: 0 0 var(--gap-sm);
+}
+
+/* stylelint-enable no-descending-specificity */

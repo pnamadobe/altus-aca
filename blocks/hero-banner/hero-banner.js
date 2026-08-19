@@ -130,11 +130,33 @@ async function playHls(video, hlsUrl) {
   }
 }
 
+/**
+ * In the DA/Universal Editor canvas, ProseMirror wraps every editable text
+ * element in `div.prosemirror-editor > div.ProseMirror`, which breaks CSS that
+ * targets a text node by direct-child (`>`) or by sibling position. Wrapping the
+ * element in a classed div gives CSS a stable, non-editable hook that survives
+ * (classes on the text node itself are stripped). Only used in the editor, so
+ * the published DOM is untouched. Runs on the clean DOM, before ProseMirror.
+ */
+function markForEditor(el, className) {
+  if (!el) return;
+  const wrapper = document.createElement('div');
+  wrapper.className = className;
+  el.replaceWith(wrapper);
+  wrapper.append(el);
+}
+
 export default function decorate(block) {
   // In an editor iframe (Universal Editor / DA), the 100vh hero feeds back
   // against the auto-sized canvas and grows unbounded. Flag it so CSS can cap
   // the height there; the live (top-level) page keeps its full-viewport hero.
-  if (window.self !== window.top) block.classList.add('hero-banner-editor');
+  if (window.self !== window.top) {
+    block.classList.add('hero-banner-editor');
+    // Positional label styling (first <p>) breaks under ProseMirror wrapping —
+    // give the eyebrow a stable div hook instead.
+    const contentCol = block.querySelector(':scope > div:last-child > div');
+    markForEditor(contentCol && contentCol.querySelector('p'), 'hero-banner-eyebrow');
+  }
 
   const firstRow = block.querySelector(':scope > div:first-child');
   if (!firstRow) return;

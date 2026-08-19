@@ -220,3 +220,46 @@
 .cards-product > ul > li.cards-product-locked .cards-product-card-body > p:nth-child(2) {
   color: rgb(245 245 243 / 20%);
 }
+
+/* === Editor (DA canvas) === */
+
+/* ProseMirror wraps each editable <p>, breaking the positional name/price
+   selectors above. decorate() hooks them with stable divs in the editor; these
+   descendant selectors tolerate the injected ProseMirror wrappers. */
+/* stylelint-disable no-descending-specificity */
+.cards-product .cards-product-name p {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.52px;
+  text-transform: uppercase;
+  color: var(--color-text);
+  margin: 0 0 4px;
+}
+
+.cards-product .cards-product-price p {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--color-accent-slate);
+  margin: 0 0 8px;
+}
+
+.section.dark .cards-product .cards-product-name p {
+  color: var(--color-text-light);
+}
+
+.section.dark .cards-product .cards-product-price p {
+  color: rgb(245 245 243 / 50%);
+}
+
+.cards-product > ul > li.cards-product-locked .cards-product-name p {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 11px;
+  color: rgb(245 245 243 / 30%);
+}
+
+.cards-product > ul > li.cards-product-locked .cards-product-price p {
+  color: rgb(245 245 243 / 20%);
+}
+
+/* stylelint-enable no-descending-specificity */

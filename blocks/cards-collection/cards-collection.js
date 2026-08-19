@@ -24,7 +24,22 @@ function isImageLink(a) {
     || /(^|\.)scene7\.com$/i.test(hostname);
 }
 
+/**
+ * In the DA/Universal Editor canvas, ProseMirror wraps every editable text
+ * element, breaking CSS that targets a text node by direct-child (`>`) or
+ * position. Wrapping the element in a classed div gives CSS a stable hook that
+ * survives. Editor-only, so the published DOM is untouched. Runs pre-ProseMirror.
+ */
+function markForEditor(el, className) {
+  if (!el) return;
+  const wrapper = document.createElement('div');
+  wrapper.className = className;
+  el.replaceWith(wrapper);
+  wrapper.append(el);
+}
+
 export default function decorate(block) {
+  const isEditor = window.self !== window.top;
   /* change to ul, li */
   const ul = document.createElement('ul');
   [...block.children].forEach((row) => {
@@ -50,6 +65,17 @@ export default function decorate(block) {
         div.className = 'cards-collection-card-body';
       }
     });
+    if (isEditor) {
+      // Tag (first <p>) and description (<p> after the <h3>) are styled by
+      // sibling position, which ProseMirror wrapping breaks — hook them with
+      // stable divs. Card order: [tag, h3, description, cta]; cta is left alone.
+      const body = li.querySelector('.cards-collection-card-body');
+      if (body) {
+        const paragraphs = [...body.children].filter((el) => el.tagName === 'P');
+        markForEditor(paragraphs[0], 'cards-collection-card-tag');
+        markForEditor(paragraphs[1], 'cards-collection-card-desc');
+      }
+    }
     ul.append(li);
   });
   ul.querySelectorAll('picture > img').forEach((img) => {

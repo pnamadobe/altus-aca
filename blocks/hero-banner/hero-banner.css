@@ -100,6 +100,19 @@
   margin: 0 0 var(--gap-md);
 }
 
+/* Editor (DA canvas): ProseMirror wraps the label <p>, breaking the positional
+   selector above. decorate() wraps it in `.hero-banner-eyebrow` there; this
+   descendant selector tolerates the injected ProseMirror divs. */
+/* stylelint-disable-next-line no-descending-specificity */
+.hero-banner .hero-banner-eyebrow p {
+  font-size: var(--label-font-size);
+  font-weight: var(--label-font-weight);
+  letter-spacing: var(--label-letter-spacing);
+  text-transform: var(--label-text-transform);
+  color: var(--color-accent-ember);
+  margin: 0 0 var(--gap-md);
+}
+
 .hero-banner a.button:any-link {
   border-color: var(--color-border-light);
   color: var(--color-text-light);
