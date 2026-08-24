@@ -235,10 +235,12 @@ async function loadLazy(doc) {
   const element = hash ? doc.getElementById(hash.substring(1)) : false;
   if (hash && element) element.scrollIntoView();
 
-  // Allow a page to opt out of the site header/footer via metadata
-  // (e.g. block-library preview docs render the block on its own, chrome-free).
-  if (getMetadata('header') !== 'false') loadHeader(doc.querySelector('header'));
-  if (getMetadata('footer') !== 'false') loadFooter(doc.querySelector('footer'));
+  // Block-library preview docs (under /block-library/) always render chrome-free
+  // so the Insert-block preview shows only the block, not the site template. Any
+  // other page can opt out of the header/footer via `header`/`footer` metadata.
+  const isBlockLibraryDoc = window.location.pathname.startsWith('/block-library/');
+  if (!isBlockLibraryDoc && getMetadata('header') !== 'false') loadHeader(doc.querySelector('header'));
+  if (!isBlockLibraryDoc && getMetadata('footer') !== 'false') loadFooter(doc.querySelector('footer'));
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
 
