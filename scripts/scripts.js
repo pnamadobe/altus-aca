@@ -18,6 +18,24 @@ import {
 } from './aem.js';
 
 /**
+ * True when the block sits in one of the first sections of the page and its
+ * images should therefore load eagerly (above/near the fold) rather than lazily.
+ * EDS only eager-loads the very first image, so blocks like cards-collection and
+ * cards-product — which render near the top of the homepage — otherwise defer
+ * their images until scroll. Section decoration has already run by the time a
+ * block decorates, so the block's section and its siblings are available here.
+ * @param {Element} block The block element
+ * @param {number} [threshold=3] Number of leading sections treated as above the fold
+ * @returns {boolean}
+ */
+export function isAboveTheFold(block, threshold = 3) {
+  const section = block.closest('.section');
+  if (!section || !section.parentElement) return false;
+  const sections = [...section.parentElement.children].filter((el) => el.classList.contains('section'));
+  return sections.indexOf(section) < threshold;
+}
+
+/**
  * Builds hero block and prepends to main in a new section.
  * @param {Element} main The container element
  */

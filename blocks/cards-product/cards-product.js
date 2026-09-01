@@ -1,4 +1,5 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
+import { isAboveTheFold } from '../../scripts/scripts.js';
 
 const COLORWAY_SETS = {
   summit: [
@@ -74,6 +75,9 @@ function markForEditor(el, className) {
 
 export default function decorate(block) {
   const isEditor = window.self !== window.top;
+  // Above/near the fold on the homepage — load these images eagerly so they
+  // start downloading immediately instead of being deferred until scroll.
+  const eager = isAboveTheFold(block);
   const ul = document.createElement('ul');
   [...block.children].forEach((row) => {
     const li = document.createElement('li');
@@ -92,7 +96,7 @@ export default function decorate(block) {
         img.src = imageLink.href;
         const text = imageLink.textContent.trim();
         img.alt = text && !/^https?:/i.test(text) ? text : '';
-        img.loading = 'lazy';
+        img.loading = eager ? 'eager' : 'lazy';
         div.replaceChildren(img);
         div.className = 'cards-product-card-image';
       } else {
@@ -197,7 +201,7 @@ export default function decorate(block) {
     ul.append(li);
   });
   ul.querySelectorAll('picture > img').forEach((imgEl) => {
-    const optimizedPic = createOptimizedPicture(imgEl.src, imgEl.alt, false, [{ width: '750' }]);
+    const optimizedPic = createOptimizedPicture(imgEl.src, imgEl.alt, eager, [{ width: '750' }]);
     imgEl.closest('picture').replaceWith(optimizedPic);
   });
   block.textContent = '';

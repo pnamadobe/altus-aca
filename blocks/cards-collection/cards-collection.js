@@ -1,4 +1,5 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
+import { isAboveTheFold } from '../../scripts/scripts.js';
 
 /**
  * True for an absolute external link to an image — an AEM Dynamic Media
@@ -40,6 +41,9 @@ function markForEditor(el, className) {
 
 export default function decorate(block) {
   const isEditor = window.self !== window.top;
+  // Above/near the fold on the homepage — load these images eagerly so they
+  // start downloading immediately instead of being deferred until scroll.
+  const eager = isAboveTheFold(block);
   /* change to ul, li */
   const ul = document.createElement('ul');
   [...block.children].forEach((row) => {
@@ -58,7 +62,7 @@ export default function decorate(block) {
         img.src = imageLink.href;
         const text = imageLink.textContent.trim();
         img.alt = text && !/^https?:/i.test(text) ? text : '';
-        img.loading = 'lazy';
+        img.loading = eager ? 'eager' : 'lazy';
         div.replaceChildren(img);
         div.className = 'cards-collection-card-image';
       } else {
@@ -79,7 +83,7 @@ export default function decorate(block) {
     ul.append(li);
   });
   ul.querySelectorAll('picture > img').forEach((img) => {
-    const optimizedPic = createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }]);
+    const optimizedPic = createOptimizedPicture(img.src, img.alt, eager, [{ width: '750' }]);
     img.closest('picture').replaceWith(optimizedPic);
   });
   block.textContent = '';
